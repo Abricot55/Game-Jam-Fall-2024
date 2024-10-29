@@ -25,7 +25,11 @@ func _process(delta):
 
 func _on_player_attacked(player_id):
 	for bot in aiBot:
-		if robot1.in_attack_area(bot.global_transform.origin):
+		if robot1.in_attack_area(bot.realposition):
 			bot.attacked()
 			print(bot.number_scrap)
+			if bot.number_scrap <= 0:
+				remove_child(bot)
+				aiBot.erase(bot)
+
 

@@ -3,20 +3,24 @@ extends Node3D
 @export var speed: float = 15.0
 @export var rotation_speed: float = 5.0
 
-@onready var animation = $robot/AnimationPlayer
-
+@onready var character = $CharacterBody3D
 var cannot_move = false
 var just_stopped = false
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 
 var number_scrap = 5
 var team = 0
 signal attack
 
 var ATTACK_RANGE = 5
+var realposition
 
 
 var FRONT_ATTACK_RANGE = 5
+
+func _process(delta):
+	realposition = character.global_transform.origin
 
 func get_num_scrap():
 	return number_scrap
