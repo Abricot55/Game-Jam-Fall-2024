@@ -30,3 +30,5 @@ mesh = SubResource("BoxMesh_vq5os")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="Robot" parent="." instance=ExtResource("1_6x1yi")]
+
+[node name="Robot2" parent="." instance=ExtResource("1_6x1yi")]
