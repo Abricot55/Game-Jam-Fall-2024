@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdydh8un3gkdn"]
+
+[ext_resource type="PackedScene" uid="uid://dr3klxvr8urd0" path="res://scene/robot_3d.tscn" id="1_6x1yi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vq5os"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oglvb"]
+
+[node name="fight_map1" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.137202, 0.990543, 0, -0.990543, 0.137203, 0, 15.3784, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.786116, 0.618079, 0, -0.618079, 0.786116, 0, 15.8091, 13.3444)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(32.6129, 0, 0, 0, 0.448967, 0, 0, 0, 50.651, 0, -1.19596, 0)
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="Robot" parent="." instance=ExtResource("1_6x1yi")]
