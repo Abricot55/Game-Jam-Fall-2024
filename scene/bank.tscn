@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://blrgn1ppm75nf"]
 
-[ext_resource type="Script" path="res://Bank.gd" id="1_i8s4c"]
+[ext_resource type="Script" path="res://script/Bank.gd" id="1_i8s4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8w2m"]
 albedo_color = Color(0.113725, 0.12549, 0.141176, 1)

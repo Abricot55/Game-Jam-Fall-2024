@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr3klxvr8urd0"]
+[gd_scene load_steps=7 format=3 uid="uid://dr3klxvr8urd0"]
 
-[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_qxjvg"]
+[ext_resource type="Script" path="res://script/robot_3d.gd" id="1_7ij37"]
+[ext_resource type="Script" path="res://script/CharacterBody3D.gd" id="1_qxjvg"]
 [ext_resource type="PackedScene" uid="uid://c72qkecuoah67" path="res://GLTFrobot/robot.gltf" id="2_l6fjp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ieiip"]
@@ -11,6 +12,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="CylinderMesh" id="CylinderMesh_vst01"]
 
 [node name="Robot" type="Node3D"]
+script = ExtResource("1_7ij37")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 script = ExtResource("1_qxjvg")
