@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkf1040dpw2am"]
+
+[ext_resource type="PackedScene" uid="uid://dynwvcvqulsnv" path="res://scene/debris/debris_spawn.tscn" id="1_g2gow"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4toqy"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_qxag0"]
+sky_material = SubResource("ProceduralSkyMaterial_4toqy")
+
+[sub_resource type="Environment" id="Environment_tjaes"]
+background_mode = 2
+sky = SubResource("Sky_qxag0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_d8o8y"]
+size = Vector3(20, 2, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_csmjo"]
+size = Vector3(20, 2, 20)
+
+[node name="MilouTemp" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tjaes")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_d8o8y")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_csmjo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 5.5192, 15.3991)
+
+[node name="DebrisSpawn" parent="." instance=ExtResource("1_g2gow")]
+max_debris = 15
+spawn_rate = 1.0
+spawn_min = Vector3(-8, 5, -8)
+spawn_max = Vector3(8, 10, 8)
