@@ -12,6 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var number_scrap = 5
 var team = 0
 signal attack
+signal died
 
 var ATTACK_RANGE = 5
 var realposition
@@ -30,6 +31,8 @@ func add_scrap():
 	
 func remove_a_scrap():
 	number_scrap -= 1
+	if number_scrap <= 0:
+		emit_signal("died")
 
 func attacked():
 	if number_scrap < 5:
@@ -40,6 +43,8 @@ func attacked():
 		number_scrap -= 4
 	elif number_scrap < 20:
 		number_scrap -= 5
+	if number_scrap <= 0:
+		emit_signal("died")
 		
 func set_team(num : int):
 	team = num
