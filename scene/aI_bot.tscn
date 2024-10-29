@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxcdtxef4cvkx"]
+
+[ext_resource type="PackedScene" uid="uid://c72qkecuoah67" path="res://GLTFrobot/robot.gltf" id="1_ldwtf"]
+[ext_resource type="Script" path="res://aI_bot.gd" id="1_qj85r"]
+[ext_resource type="Script" path="res://aicharacter.gd" id="2_udvki"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qbt76"]
+
+[node name="AIbot" type="Node3D"]
+script = ExtResource("1_qj85r")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("2_udvki")
+
+[node name="robot" parent="CharacterBody3D" instance=ExtResource("1_ldwtf")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(4.3, 0, 0, 0, 4.3, 0, 0, 0, 4.3, 0, 4.22489, 0)
+shape = SubResource("CapsuleShape3D_qbt76")
