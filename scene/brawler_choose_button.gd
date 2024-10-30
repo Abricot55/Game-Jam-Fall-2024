@@ -14,7 +14,7 @@ func _ready():
 	update_button_display()
 
 func _on_Button_pressed():
-	current_type = (current_type + 1) % 3
+	current_type = (current_type + 1) % 3 as PlayerType
 	match current_type:
 		0: GameData.num_bot-=1
 		1: GameData.num_player += 1

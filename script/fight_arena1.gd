@@ -17,7 +17,7 @@ func _ready():
 	for i in range(GameData.num_bot + GameData.num_player):
 		players.append(null)
 	timer.start()
-	player_infos.get_child(4).text = str(int(timer.time_left)+1)
+	player_infos.countdown.text = str(int(timer.time_left)+1)
 	for i in range(0,GameData.num_player):
 		var player = player_scene.instantiate()
 		player.set_team(i)
@@ -39,7 +39,7 @@ func _ready():
 
 func _process(delta):
 	if timer.is_stopped() == false:
-		player_infos.get_child(4).text = str(int(timer.time_left)+1)
+		player_infos.countdown.text = str(int(timer.time_left)+1)
 
 	if Input.is_action_just_pressed("z"):
 		if players[0].get_child(0).global_transform.origin.distance_to(bank.global_transform.origin) < bank.scale.x+2:
@@ -77,6 +77,6 @@ func respawn(person):
 
 
 func _on_timer_timeout() -> void:
-	player_infos.get_child(4).visible = false
+	player_infos.countdown.visible = false
 	for i in players:
 		i.process_mode = Node.PROCESS_MODE_INHERIT

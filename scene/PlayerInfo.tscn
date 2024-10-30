@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://csk2xkuppcx6d"]
+[gd_scene load_steps=9 format=3 uid="uid://csk2xkuppcx6d"]
 
 [ext_resource type="Texture2D" uid="uid://dn6hdqodg1t0g" path="res://GLTFrobot/robotFace.png" id="1_47gmc"]
-[ext_resource type="Texture2D" uid="uid://oor2bfmbdhx1" path="res://redCog_transparent.png" id="2_tj202"]
-[ext_resource type="Texture2D" uid="uid://wbimtrlsrqmo" path="res://blueCog_transparent.png" id="3_4jb7r"]
-[ext_resource type="Texture2D" uid="uid://6sogpb5h2pq2" path="res://yellowCog_transparent.png" id="4_er2q2"]
-[ext_resource type="Texture2D" uid="uid://o1gy1ciat5u0" path="res://greenCog_transparent.png" id="5_k5p8q"]
+[ext_resource type="Script" path="res://script/player_info.gd" id="1_i6a2m"]
+[ext_resource type="Texture2D" uid="uid://oor2bfmbdhx1" path="res://assets/redCog_transparent.png" id="2_tj202"]
+[ext_resource type="Texture2D" uid="uid://wbimtrlsrqmo" path="res://assets/blueCog_transparent.png" id="3_4jb7r"]
+[ext_resource type="Texture2D" uid="uid://6sogpb5h2pq2" path="res://assets/yellowCog_transparent.png" id="4_er2q2"]
+[ext_resource type="Texture2D" uid="uid://o1gy1ciat5u0" path="res://assets/greenCog_transparent.png" id="5_k5p8q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g8qj0"]
 font_size = 100
@@ -12,16 +13,45 @@ font_size = 100
 [sub_resource type="LabelSettings" id="LabelSettings_3p2gc"]
 font_size = 35
 
-[node name="PlayerInfo" type="Node2D"]
+[node name="PlayerInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_i6a2m")
 
-[node name="player1" type="Node2D" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="playerimage" type="Sprite2D" parent="player1"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="player1" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+
+[node name="playerimage" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player1"]
 position = Vector2(70.5, 70.375)
 scale = Vector2(0.204348, 0.167973)
 texture = ExtResource("1_47gmc")
 
-[node name="numberclam" type="Label" parent="player1"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player1"]
+z_index = -1
+position = Vector2(119, 55)
+scale = Vector2(0.14313, 0.115079)
+texture = ExtResource("2_tj202")
+
+[node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer/player1"]
 offset_left = 110.0
 offset_top = 119.0
 offset_right = 174.0
@@ -29,70 +59,84 @@ offset_bottom = 142.0
 text = "scrap : 0"
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="player1"]
-z_index = -1
-position = Vector2(119, 55)
-scale = Vector2(0.14313, 0.115079)
-texture = ExtResource("2_tj202")
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="player2" type="Node2D" parent="."]
-position = Vector2(966, 10)
+[node name="player2" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(185, 150)
+layout_mode = 2
 
-[node name="playerimage" type="Sprite2D" parent="player2"]
+[node name="playerimage" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player2"]
 position = Vector2(70.5, 70.375)
 scale = Vector2(0.204348, 0.167973)
 texture = ExtResource("1_47gmc")
 
-[node name="numberclam" type="Label" parent="player2"]
+[node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer/player2"]
 offset_left = 110.0
 offset_top = 119.0
 offset_right = 174.0
 offset_bottom = 142.0
 text = "scrap : 0"
 
-[node name="Sprite2D" type="Sprite2D" parent="player2"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player2"]
 z_index = -1
 position = Vector2(123, 48)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("3_4jb7r")
 
-[node name="player3" type="Node2D" parent="."]
-position = Vector2(16, 492)
+[node name="Control2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="playerimage" type="Sprite2D" parent="player3"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="player3" type="Control" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+
+[node name="playerimage" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player3"]
 position = Vector2(70.5, 70.375)
 scale = Vector2(0.204348, 0.167973)
 texture = ExtResource("1_47gmc")
 
-[node name="numberclam" type="Label" parent="player3"]
+[node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer2/player3"]
 offset_left = 110.0
 offset_top = 119.0
 offset_right = 174.0
 offset_bottom = 142.0
 text = "scrap : 0"
 
-[node name="Sprite2D" type="Sprite2D" parent="player3"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player3"]
 z_index = -1
 position = Vector2(118, 55)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("4_er2q2")
 
-[node name="player4" type="Node2D" parent="."]
-position = Vector2(964, 494)
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="playerimage" type="Sprite2D" parent="player4"]
+[node name="player4" type="Control" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(185, 150)
+layout_mode = 2
+
+[node name="playerimage" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player4"]
 position = Vector2(70.5, 70.375)
 scale = Vector2(0.204348, 0.167973)
 texture = ExtResource("1_47gmc")
 
-[node name="numberclam" type="Label" parent="player4"]
+[node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer2/player4"]
 offset_left = 110.0
 offset_top = 119.0
 offset_right = 174.0
 offset_bottom = 142.0
 text = "scrap : 0"
 
-[node name="Sprite2D" type="Sprite2D" parent="player4"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player4"]
 z_index = -1
 position = Vector2(119, 48)
 scale = Vector2(0.14313, 0.115079)
@@ -100,18 +144,32 @@ texture = ExtResource("5_k5p8q")
 
 [node name="countdown" type="Label" parent="."]
 process_mode = 2
-offset_left = 470.0
-offset_top = 229.0
-offset_right = 693.0
-offset_bottom = 366.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.5
+offset_top = -68.5
+offset_right = 111.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "num
 "
 label_settings = SubResource("LabelSettings_g8qj0")
+horizontal_alignment = 1
 
 [node name="gameinfo" type="Label" parent="."]
-offset_left = 391.0
-offset_right = 780.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.5
+offset_right = 194.5
 offset_bottom = 49.0
+grow_horizontal = 2
 text = "First to 30 in bank wins
 "
 label_settings = SubResource("LabelSettings_3p2gc")

@@ -13,11 +13,18 @@ config_version=5
 config/name="Game-jam-fall-2024"
 run/main_scene="res://scene/homeScreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
 
 [autoload]
 
 GameData="*res://script/gameData.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
 [filesystem]
 
