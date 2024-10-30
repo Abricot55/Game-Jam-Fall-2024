@@ -1,13 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr3klxvr8urd0"]
+[gd_scene load_steps=8 format=3 uid="uid://dr3klxvr8urd0"]
 
-[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_qxjvg"]
+[ext_resource type="Script" path="res://script/robot_3d.gd" id="1_7ij37"]
+[ext_resource type="Script" path="res://script/CharacterBody3D.gd" id="1_qxjvg"]
 [ext_resource type="PackedScene" uid="uid://c72qkecuoah67" path="res://GLTFrobot/robot.gltf" id="2_l6fjp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ieiip"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5o4dg"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vst01"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uvds0"]
+height = 0.5
+radius = 2.5
+
 [node name="Robot" type="Node3D"]
+script = ExtResource("1_7ij37")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_qxjvg")
 
 [node name="robot" parent="CharacterBody3D" instance=ExtResource("2_l6fjp")]
@@ -15,3 +28,18 @@ script = ExtResource("1_qxjvg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(4.3, 0, 0, 0, 4.3, 0, 0, 0, 4.3, 0, 4.22489, 0)
 shape = SubResource("CapsuleShape3D_ieiip")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5o4dg")
+mesh = SubResource("CylinderMesh_vst01")
+
+[node name="PickupArea3D" type="Area3D" parent="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D/PickupArea3D"]
+shape = SubResource("CylinderShape3D_uvds0")
+
+[node name="DropPosition" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)

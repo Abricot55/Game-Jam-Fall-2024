@@ -8,4 +8,3 @@ func add_scrap():
 
 func get_team():
 	return team
-

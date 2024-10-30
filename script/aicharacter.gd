@@ -6,6 +6,10 @@ extends CharacterBody3D
 
 var direction: Vector3 = Vector3.ZERO
 var timer: Timer
+var knockback_direction
+var knockback_duration = 1
+var knockback_timer = 0
+
 
 func _ready() -> void:
 
@@ -36,4 +40,19 @@ func _process(delta: float) -> void:
 	if direction != Vector3.ZERO:
 		velocity.x = direction.x * speed 
 		velocity.z = direction.z * speed
+	if knockback_timer > 0:
+		velocity = knockback_direction
+		knockback_timer -= delta
 	move_and_slide()
+
+func knockback():
+	var random_x = randf_range(-1.0, 1.0)
+	var random_y = randf_range(0, 0.5)
+	var random_z = randf_range(-1.0, 1.0)
+	
+	# Crée un vecteur avec ces valeurs
+	var random_vector = Vector3(random_x, random_y, random_z)
+	
+	# Normalise le vecteur pour qu'il ait une longueur de 1
+	knockback_direction = random_vector*30
+	knockback_timer = knockback_duration

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dynwvcvqulsnv"]
+
+[ext_resource type="Script" path="res://scene/debris/debris_spawn.gd" id="1_70seu"]
+
+[node name="DebrisSpawn" type="Node3D"]
+script = ExtResource("1_70seu")

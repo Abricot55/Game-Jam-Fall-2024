@@ -1,0 +1,181 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0vm4qhwssl36"]
+
+[ext_resource type="Script" path="res://script/home_screen.gd" id="1_jpiwl"]
+[ext_resource type="Texture2D" uid="uid://bu77rm56gqp5v" path="res://assets/home.png" id="2_2lkmv"]
+[ext_resource type="Texture2D" uid="uid://s6k7ku2aan3t" path="res://assets/logo.png" id="3_m6nc4"]
+[ext_resource type="Script" path="res://scene/brawler_choose_button.gd" id="3_ounfo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wiwe8"]
+bg_color = Color(1, 0, 0, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uoy5j"]
+bg_color = Color(0, 0, 1, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4cyd"]
+bg_color = Color(1, 1, 0, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qabxo"]
+bg_color = Color(0, 1, 0, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g57x0"]
+bg_color = Color(1, 0.227451, 0.211765, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.517647, 0.243137, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HomeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_jpiwl")
+
+[node name="PlayButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(578, 326)
+scale = Vector2(0.374042, 0.386244)
+texture = ExtResource("2_2lkmv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -93.5
+offset_right = 250.0
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_m6nc4")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Control3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="choose1" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_wiwe8")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="choose2" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_uoy5j")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="choose3" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_i4cyd")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="Control3" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="choose4" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_qabxo")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Rounds
+"
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_g57x0")
+text = "Play
+"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/choose1" to="VBoxContainer/HBoxContainer/choose1" method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/choose2" to="VBoxContainer/HBoxContainer/choose2" method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/choose3" to="VBoxContainer/HBoxContainer/choose3" method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/choose4" to="VBoxContainer/HBoxContainer/choose4" method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
