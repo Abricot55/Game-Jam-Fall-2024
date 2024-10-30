@@ -3,7 +3,7 @@ extends Node3D
 @onready var bank = $Bank
 @onready var player_infos = $PlayerInfo
 @onready var timer = $Timer
-
+@onready var debris_spawner = $DebrisSpawn
 
 var player_scene = preload("res://scene/robot_3d.tscn")
 var ai_bot_scene = preload("res://scene/aI_bot.tscn")
@@ -37,7 +37,7 @@ func _ready():
 		new_ai_bot.get_child(0).get_child(new_ai_bot.team+1).visible = true
 		new_ai_bot.process_mode = Node.PROCESS_MODE_DISABLED
 
-func _process(delta):
+func _process(_delta):
 	if timer.is_stopped() == false:
 		player_infos.countdown.text = str(int(timer.time_left)+1)
 
@@ -46,7 +46,8 @@ func _process(delta):
 			if players[0].get_num_scrap() > 1:
 				players[0].remove_a_scrap()
 				bank.add_scrap()
-				player_infos.get_child(0).get_child(1).text = "scraps : "+ str(bank.number_scrap)
+				# NOTE: getting node from index might easily break...
+				player_infos.players_info[0].get_child(1).text = "scraps : "+ str(bank.number_scrap)
 				if bank.number_scrap == 4:
 					var scene = final_scene.instantiate()
 					scene.get_child(0).visible = true

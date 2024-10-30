@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdydh8un3gkdn"]
+[gd_scene load_steps=7 format=3 uid="uid://cdydh8un3gkdn"]
 
 [ext_resource type="Script" path="res://script/fight_arena1.gd" id="1_8rvvr"]
 [ext_resource type="PackedScene" uid="uid://blrgn1ppm75nf" path="res://scene/bank.tscn" id="1_xb17v"]
+[ext_resource type="PackedScene" uid="uid://dynwvcvqulsnv" path="res://scene/debris/debris_spawn.tscn" id="4_22dfn"]
 [ext_resource type="PackedScene" uid="uid://csk2xkuppcx6d" path="res://scene/PlayerInfo.tscn" id="4_opd4e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vq5os"]
@@ -70,5 +71,11 @@ mesh = SubResource("BoxMesh_vq5os")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
 shape = SubResource("BoxShape3D_oglvb")
+
+[node name="DebrisSpawn" parent="." instance=ExtResource("4_22dfn")]
+max_debris = 15
+spawn_rate = 1.0
+spawn_min = Vector3(-49, 15, -24)
+spawn_max = Vector3(49, 20, 24)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

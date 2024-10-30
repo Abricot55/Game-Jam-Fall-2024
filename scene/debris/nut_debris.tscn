@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdr4ngkntjaoh"]
+[gd_scene load_steps=5 format=3 uid="uid://bdr4ngkntjaoh"]
 
 [ext_resource type="Script" path="res://scene/debris/debris.gd" id="1_gdbgk"]
 [ext_resource type="PackedScene" uid="uid://cvbkx4iupmewk" path="res://blender/nut.glb" id="2_ym7ar"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c1qdd"]
 height = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qkmqi"]
+height = 0.5
+radius = 0.6
 
 [node name="NutDebris" type="RigidBody3D"]
 script = ExtResource("1_gdbgk")
@@ -13,3 +17,12 @@ script = ExtResource("1_gdbgk")
 shape = SubResource("CylinderShape3D_c1qdd")
 
 [node name="nut" parent="." instance=ExtResource("2_ym7ar")]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_qkmqi")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
