@@ -7,17 +7,18 @@ extends Node3D
 
 var player_scene = preload("res://scene/robot_3d.tscn")
 var ai_bot_scene = preload("res://scene/aI_bot.tscn")
+var final_scene = preload("res://scene/endScreen.tscn")
 
-var players = [null,null,null,null]
+var players = []
 var gamemode = "BANK"
-var numberplayer = 1
 var colors = [Color(1,0,0),Color(0,1,0), Color(0,0,1), Color(1,1,0)]
 
 func _ready():
+	for i in range(GameData.num_bot + GameData.num_player):
+		players.append(null)
 	timer.start()
 	player_infos.get_child(4).text = str(int(timer.time_left)+1)
-	
-	for i in range(0,numberplayer):
+	for i in range(0,GameData.num_player):
 		var player = player_scene.instantiate()
 		player.set_team(i)
 		respawn(player)
@@ -27,9 +28,9 @@ func _ready():
 		player.get_child(0).get_child(2).get_active_material(0).albedo_color = colors[player.team]
 		player.process_mode = PROCESS_MODE_DISABLED
 		
-	for i in range(0,4-numberplayer):
+	for i in range(0,GameData.num_bot):
 		var new_ai_bot = ai_bot_scene.instantiate()
-		new_ai_bot.team = i + numberplayer
+		new_ai_bot.team = i + GameData.num_player
 		respawn(new_ai_bot)
 		print(new_ai_bot.get_child(0).get_child(2).get_active_material(0))
 		new_ai_bot.connect("died", Callable(self,"_died").bind(new_ai_bot.team))
@@ -47,7 +48,10 @@ func _process(delta):
 				bank.add_scrap()
 				player_infos.get_child(0).get_child(1).text = "scraps : "+ str(bank.number_scrap)
 				if bank.number_scrap == 4:
-					get_tree().change_scene_to_file("res://scene/endScreen.tscn")
+					var scene = final_scene.instantiate()
+					scene.get_child(0).visible = true
+					get_tree().get_root().add_child(scene)
+					get_tree().current_scene.queue_free()
 
 func _on_player_attacked(player_id):
 	for bot in players:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0vm4qhwssl36"]
+[gd_scene load_steps=9 format=3 uid="uid://b0vm4qhwssl36"]
 
 [ext_resource type="Script" path="res://script/home_screen.gd" id="1_jpiwl"]
 [ext_resource type="Texture2D" uid="uid://bu77rm56gqp5v" path="res://home.png" id="2_2lkmv"]
+[ext_resource type="Script" path="res://scene/brawler_choose_button.gd" id="3_ounfo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g57x0"]
 bg_color = Color(1, 0.227451, 0.211765, 1)
@@ -14,6 +15,18 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wiwe8"]
+bg_color = Color(1, 0, 0, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uoy5j"]
+bg_color = Color(0, 0, 1, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4cyd"]
+bg_color = Color(1, 1, 0, 0.729412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qabxo"]
+bg_color = Color(0, 1, 0, 0.729412)
 
 [node name="HomeScreen" type="Node2D"]
 script = ExtResource("1_jpiwl")
@@ -47,6 +60,7 @@ text = "Rounds
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(578, 326)
 scale = Vector2(0.374042, 0.386244)
 texture = ExtResource("2_2lkmv")
@@ -55,4 +69,48 @@ texture = ExtResource("2_2lkmv")
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="choose1" type="Button" parent="."]
+offset_left = 364.0
+offset_top = 285.0
+offset_right = 431.0
+offset_bottom = 338.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_wiwe8")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="choose2" type="Button" parent="."]
+offset_left = 457.0
+offset_top = 285.0
+offset_right = 524.0
+offset_bottom = 338.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_uoy5j")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="choose3" type="Button" parent="."]
+offset_left = 546.0
+offset_top = 282.0
+offset_right = 613.0
+offset_bottom = 335.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_i4cyd")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
+[node name="choose4" type="Button" parent="."]
+offset_left = 633.0
+offset_top = 282.0
+offset_right = 700.0
+offset_bottom = 335.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_qabxo")
+text = "CPU"
+script = ExtResource("3_ounfo")
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="choose1" to="choose1" method="_on_Button_pressed"]
+[connection signal="pressed" from="choose2" to="choose2" method="_on_Button_pressed"]
+[connection signal="pressed" from="choose3" to="choose3" method="_on_Button_pressed"]
+[connection signal="pressed" from="choose4" to="choose4" method="_on_Button_pressed"]
