@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbfv3m5ixxfev"
-path="res://.godot/imported/redCog.png-9ccc70d0d2e97f5300c5303a37401b5c.ctex"
+uid="uid://dole6onksglbr"
+path="res://.godot/imported/win4.png-9062a166c0126c488b0e8ba0921ae4b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://redCog.png"
-dest_files=["res://.godot/imported/redCog.png-9ccc70d0d2e97f5300c5303a37401b5c.ctex"]
+source_file="res://assets/win4.png"
+dest_files=["res://.godot/imported/win4.png-9062a166c0126c488b0e8ba0921ae4b2.ctex"]
 
 [params]
 

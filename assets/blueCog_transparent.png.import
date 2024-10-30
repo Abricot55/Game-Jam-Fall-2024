@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o1gy1ciat5u0"
-path="res://.godot/imported/greenCog_transparent.png-488d4706bdfb6c0442f4e46696540521.ctex"
+uid="uid://wbimtrlsrqmo"
+path="res://.godot/imported/blueCog_transparent.png-bccdc24cd8c5d45df7e009a4b5757826.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://greenCog_transparent.png"
-dest_files=["res://.godot/imported/greenCog_transparent.png-488d4706bdfb6c0442f4e46696540521.ctex"]
+source_file="res://assets/blueCog_transparent.png"
+dest_files=["res://.godot/imported/blueCog_transparent.png-bccdc24cd8c5d45df7e009a4b5757826.ctex"]
 
 [params]
 

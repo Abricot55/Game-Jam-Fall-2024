@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cesx2eqavk0eu"
-path="res://.godot/imported/win3.png-4f7ee324bfb9571c0658d161dedc4d5e.ctex"
+uid="uid://6sogpb5h2pq2"
+path="res://.godot/imported/yellowCog_transparent.png-a7eb67b064f7c0a917f25a84a51ff980.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://win3.png"
-dest_files=["res://.godot/imported/win3.png-4f7ee324bfb9571c0658d161dedc4d5e.ctex"]
+source_file="res://assets/yellowCog_transparent.png"
+dest_files=["res://.godot/imported/yellowCog_transparent.png-a7eb67b064f7c0a917f25a84a51ff980.ctex"]
 
 [params]
 

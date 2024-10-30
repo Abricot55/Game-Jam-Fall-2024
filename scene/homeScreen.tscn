@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b0vm4qhwssl36"]
 
 [ext_resource type="Script" path="res://script/home_screen.gd" id="1_jpiwl"]
-[ext_resource type="Texture2D" uid="uid://bu77rm56gqp5v" path="res://home.png" id="2_2lkmv"]
+[ext_resource type="Texture2D" uid="uid://bu77rm56gqp5v" path="res://assets/home.png" id="2_2lkmv"]
 [ext_resource type="Script" path="res://scene/brawler_choose_button.gd" id="3_ounfo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g57x0"]
