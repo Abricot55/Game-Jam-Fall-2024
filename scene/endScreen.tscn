@@ -15,26 +15,26 @@ grow_vertical = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(573, 321)
-scale = Vector2(0.369696, 0.384867)
+position = Vector2(640.872, 358.126)
+scale = Vector2(0.413697, 0.429276)
 texture = ExtResource("1_t6q7r")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(573, 321)
-scale = Vector2(0.369696, 0.384867)
+position = Vector2(641.872, 362.126)
+scale = Vector2(0.414346, 0.43406)
 texture = ExtResource("2_33jep")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(573, 321)
-scale = Vector2(0.369696, 0.384867)
+position = Vector2(640.872, 364.626)
+scale = Vector2(0.413697, 0.437051)
 texture = ExtResource("2_injaj")
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(573, 321)
-scale = Vector2(0.369696, 0.384867)
+position = Vector2(642.872, 364.626)
+scale = Vector2(0.414994, 0.437051)
 texture = ExtResource("4_efadl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

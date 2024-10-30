@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxcdtxef4cvkx"]
+
+[ext_resource type="PackedScene" uid="uid://c72qkecuoah67" path="res://GLTFrobot/robot.gltf" id="1_ldwtf"]
+[ext_resource type="Script" path="res://script/aI_bot.gd" id="1_qj85r"]
+[ext_resource type="Script" path="res://script/aicharacter.gd" id="2_udvki"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qbt76"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3nuc"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gcply"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g2fp"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxvk5"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37m0e"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y5u43"]
+height = 0.5
+radius = 2.5
+
+[node name="AIbot" type="Node3D"]
+script = ExtResource("1_qj85r")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("2_udvki")
+
+[node name="robot" parent="CharacterBody3D" instance=ExtResource("1_ldwtf")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(4.3, 0, 0, 0, 4.3, 0, 0, 0, 4.3, 0, 4.22489, 0)
+shape = SubResource("CapsuleShape3D_qbt76")
+
+[node name="MeshInstance3Dblue" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_y3nuc")
+mesh = SubResource("CylinderMesh_gcply")
+
+[node name="MeshInstance3Dyellow" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_5g2fp")
+mesh = SubResource("CylinderMesh_gcply")
+
+[node name="MeshInstance3Dgreen" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_hxvk5")
+mesh = SubResource("CylinderMesh_gcply")
+
+[node name="MeshInstance3Dred" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_37m0e")
+mesh = SubResource("CylinderMesh_gcply")
+
+[node name="DropPosition" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="PickupArea3D" type="Area3D" parent="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D/PickupArea3D"]
+shape = SubResource("CylinderShape3D_y5u43")

@@ -17,11 +17,17 @@ var dash_timer = 0
 
 var ATTACK_RANGE = 5
 
+var knockback_direction
+var knockback_duration = 1
+var knockback_timer = 0
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity*delta
+		dash_duration = 0
 	else :
 		velocity.y = 0
+		dash_duration = 0.05
 
 	var input_direction = Vector3(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
@@ -77,9 +83,21 @@ func _physics_process(delta: float) -> void:
 			elif !animation.is_playing():
 				animation.play("iddle")
 		velocity = Vector3(0, velocity.y, 0)  
-	
+	if knockback_timer > 0:
+		velocity = knockback_direction
+		knockback_timer -= delta
+		move_and_slide()
 	if position.y < -15:
 		emit_signal("died")
 
-func knockback(direction,force):
-	velocity += direction * force
+func knockback():
+	var random_x = randf_range(-1.0, 1.0)
+	var random_y = randf_range(0, 0)
+	var random_z = randf_range(-1.0, 1.0)
+	
+	# Crée un vecteur avec ces valeurs
+	var random_vector = Vector3(random_x, random_y, random_z)
+	
+	# Normalise le vecteur pour qu'il ait une longueur de 1
+	knockback_direction = random_vector*30
+	knockback_timer = knockback_duration

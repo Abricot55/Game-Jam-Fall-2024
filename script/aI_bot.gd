@@ -12,11 +12,13 @@ var cannot_move = false
 var just_stopped = false
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var otherPlayers = []
 
 var number_scrap = 5
 var team = 0
 signal attack
 signal died
+signal scrap_changed
 
 var ATTACK_RANGE = 5
 var realposition
@@ -24,6 +26,9 @@ var realposition
 
 var FRONT_ATTACK_RANGE = 5
 
+func _ready():
+	emit_signal("scrap_changed")
+	
 func _process(_delta):
 	realposition = character.global_transform.origin
 
@@ -32,9 +37,16 @@ func get_num_scrap():
 
 func add_scrap():
 	number_scrap += 1
+	emit_signal("scrap_changed")
+	if number_scrap > 10 and GameData.game_mode == "BANK":
+		character.cash_in = true
+		character.bank_location = GameData.banks[team].position
 	
 func remove_a_scrap():
 	number_scrap -= 1
+	emit_signal("scrap_changed")
+	if number_scrap == 9:
+		character.cash_in = false
 	if number_scrap <= 0:
 		emit_signal("died")
 
@@ -54,7 +66,9 @@ func attacked():
 	elif number_scrap < 20:
 		number_scrap -= 5
 		Debris.summon_at_random(scene, drop_pos, 5)
-		
+	if number_scrap <= 9:
+		character.cash_in = false
+	emit_signal("scrap_changed")
 	if number_scrap <= 0:
 		emit_signal("died")
 		character.velocity = Vector3(0,0,0)
@@ -68,7 +82,8 @@ func get_team():
 	return team
 
 func in_attack_area(position_other : Vector3):
-	var distance = global_transform.origin.distance_to(position_other)
-	if distance <= ATTACK_RANGE:  # Check distance
+	var distance = character.global_transform.origin.distance_to(position_other)
+	if distance <= ATTACK_RANGE+2:  # Check distance
 		return true
 	return false
+	

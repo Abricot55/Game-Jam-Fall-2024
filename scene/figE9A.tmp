@@ -13,16 +13,7 @@
 script = ExtResource("1_8rvvr")
 
 [node name="Bank" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -25.3666, 2.5, -14.219)
-
-[node name="Bank2" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 34.8255, 2.5, -14.219)
-
-[node name="Bank3" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -28.2897, 2.5, 10.0556)
-
-[node name="Bank4" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 33.6895, 2.5, 6.58571)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.584, 2.5, -14.219)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.137202, 0.990543, 0, -0.990543, 0.137203, 0, 15.3784, 0)

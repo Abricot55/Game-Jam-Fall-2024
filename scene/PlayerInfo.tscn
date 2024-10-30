@@ -45,20 +45,28 @@ position = Vector2(70.5, 70.375)
 scale = Vector2(0.204348, 0.167973)
 texture = ExtResource("1_47gmc")
 
-[node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer/player1"]
+[node name="numberscrap" type="Label" parent="VBoxContainer/HBoxContainer/player1"]
 layout_mode = 0
 offset_left = 110.0
-offset_top = 119.0
-offset_right = 174.0
-offset_bottom = 142.0
-text = "scrap : 0"
-metadata/_edit_use_anchors_ = true
+offset_top = 102.0
+offset_right = 183.0
+offset_bottom = 125.0
+text = "Scraps : 0"
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player1"]
 z_index = -1
 position = Vector2(119, 55)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("2_tj202")
+
+[node name="numberbanked" type="Label" parent="VBoxContainer/HBoxContainer/player1"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 119.0
+offset_right = 191.0
+offset_bottom = 142.0
+text = "Banked : 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -79,13 +87,27 @@ offset_left = 110.0
 offset_top = 119.0
 offset_right = 174.0
 offset_bottom = 142.0
-text = "scrap : 0"
+text = "Scraps : 0"
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/player2"]
 z_index = -1
 position = Vector2(123, 48)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("3_4jb7r")
+
+[node name="numberbanked" type="Label" parent="VBoxContainer/HBoxContainer/player2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0378378
+anchor_top = 0.113333
+anchor_right = -0.0378378
+anchor_bottom = 0.113333
+offset_left = 110.0
+offset_top = 119.0
+offset_right = 191.0
+offset_bottom = 142.0
+text = "Banked : 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="Control2" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -107,17 +129,31 @@ texture = ExtResource("1_47gmc")
 
 [node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer2/player3"]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 119.0
-offset_right = 174.0
-offset_bottom = 142.0
-text = "scrap : 0"
+offset_left = 128.0
+offset_top = 93.0
+offset_right = 201.0
+offset_bottom = 119.0
+text = "Scraps : 0"
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player3"]
 z_index = -1
 position = Vector2(118, 55)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("4_er2q2")
+
+[node name="numberbanked" type="Label" parent="VBoxContainer/HBoxContainer2/player3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.095
+anchor_top = -0.0266667
+anchor_right = 0.095
+anchor_bottom = -0.0266667
+offset_left = 110.0
+offset_top = 119.0
+offset_right = 191.0
+offset_bottom = 142.0
+text = "Banked : 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -134,17 +170,31 @@ texture = ExtResource("1_47gmc")
 
 [node name="numberclam" type="Label" parent="VBoxContainer/HBoxContainer2/player4"]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 119.0
-offset_right = 174.0
-offset_bottom = 142.0
-text = "scrap : 0"
+offset_left = 108.0
+offset_top = 101.0
+offset_right = 181.0
+offset_bottom = 124.0
+text = "Scraps : 0"
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/player4"]
 z_index = -1
 position = Vector2(119, 48)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("5_k5p8q")
+
+[node name="numberbanked" type="Label" parent="VBoxContainer/HBoxContainer2/player4"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0486486
+anchor_top = 0.00666667
+anchor_right = -0.0486486
+anchor_bottom = 0.00666667
+offset_left = 110.0
+offset_top = 119.0
+offset_right = 191.0
+offset_bottom = 142.0
+text = "Banked : 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="countdown" type="Label" parent="."]
 process_mode = 2

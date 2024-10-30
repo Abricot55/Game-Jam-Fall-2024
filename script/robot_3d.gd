@@ -16,13 +16,16 @@ var number_scrap = 5
 var team = 0
 signal attack
 signal died
+signal scrap_changed
 
 var ATTACK_RANGE = 7
 var realposition
 
 var FRONT_ATTACK_RANGE = 5
 
-func _physics_process(delta):
+func _ready():
+	emit_signal("scrap_changed")
+func _process(delta):
 	realposition = character.global_transform.origin
 
 func get_num_scrap():
@@ -30,11 +33,13 @@ func get_num_scrap():
 
 func add_scrap():
 	number_scrap += 1
+	emit_signal("scrap_changed")
 	
 func remove_a_scrap():
 	number_scrap -= 1
 	if number_scrap <= 0:
 		emit_signal("died")
+	emit_signal("scrap_changed")
 
 func attacked():
 	var scene = self.get_parent_node_3d()
@@ -54,6 +59,7 @@ func attacked():
 		Debris.summon_at_random(scene, drop_pos, 5)
 	if number_scrap <= 0:
 		emit_signal("died")
+	emit_signal("scrap_changed")
 		
 func set_team(num : int):
 	team = num

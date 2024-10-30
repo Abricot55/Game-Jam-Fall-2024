@@ -17,6 +17,7 @@ script = ExtResource("1_gdbgk")
 shape = SubResource("CylinderShape3D_c1qdd")
 
 [node name="nut" parent="." instance=ExtResource("2_ym7ar")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
