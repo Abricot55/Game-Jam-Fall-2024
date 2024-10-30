@@ -14,7 +14,7 @@ var team = 0
 signal attack
 signal died
 
-var ATTACK_RANGE = 5
+var ATTACK_RANGE = 7
 var realposition
 
 
@@ -35,6 +35,7 @@ func remove_a_scrap():
 		emit_signal("died")
 
 func attacked():
+	character.knockback()
 	if number_scrap < 5:
 		number_scrap -= 2
 	elif number_scrap < 10:

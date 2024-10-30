@@ -12,6 +12,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 signal attack
 signal died
 
+var dash_duration = 0.05
+var dash_timer = 0
 
 var ATTACK_RANGE = 5
 
@@ -36,8 +38,18 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("h"):
 		cannot_move = true
 		animation.play("hello")
+	
+	if Input.is_action_just_pressed("shift"):
+		dash_timer = dash_duration
+		
+	if dash_timer > 0:
+		velocity = velocity*30
+		dash_timer -= delta
+		move_and_slide()
+		if dash_timer <=0 :
+			cannot_move = true
+			animation.play("walkingstop")
 
-	# For the movement
 	if input_direction != Vector3.ZERO:
 		velocity.x = input_direction.x * speed
 		velocity.z = input_direction.z * speed
@@ -68,3 +80,6 @@ func _process(delta: float) -> void:
 	
 	if position.y < -15:
 		emit_signal("died")
+
+func knockback(direction,force):
+	velocity += direction * force

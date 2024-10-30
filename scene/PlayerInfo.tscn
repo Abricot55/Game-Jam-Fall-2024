@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://csk2xkuppcx6d"]
+[gd_scene load_steps=8 format=3 uid="uid://csk2xkuppcx6d"]
 
 [ext_resource type="Texture2D" uid="uid://dn6hdqodg1t0g" path="res://GLTFrobot/robotFace.png" id="1_47gmc"]
 [ext_resource type="Texture2D" uid="uid://oor2bfmbdhx1" path="res://redCog_transparent.png" id="2_tj202"]
 [ext_resource type="Texture2D" uid="uid://wbimtrlsrqmo" path="res://blueCog_transparent.png" id="3_4jb7r"]
 [ext_resource type="Texture2D" uid="uid://6sogpb5h2pq2" path="res://yellowCog_transparent.png" id="4_er2q2"]
 [ext_resource type="Texture2D" uid="uid://o1gy1ciat5u0" path="res://greenCog_transparent.png" id="5_k5p8q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g8qj0"]
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_3p2gc"]
+font_size = 35
 
 [node name="PlayerInfo" type="Node2D"]
 
@@ -91,3 +97,21 @@ z_index = -1
 position = Vector2(119, 48)
 scale = Vector2(0.14313, 0.115079)
 texture = ExtResource("5_k5p8q")
+
+[node name="countdown" type="Label" parent="."]
+process_mode = 2
+offset_left = 470.0
+offset_top = 229.0
+offset_right = 693.0
+offset_bottom = 366.0
+text = "num
+"
+label_settings = SubResource("LabelSettings_g8qj0")
+
+[node name="gameinfo" type="Label" parent="."]
+offset_left = 391.0
+offset_right = 780.0
+offset_bottom = 49.0
+text = "First to 30 in bank wins
+"
+label_settings = SubResource("LabelSettings_3p2gc")

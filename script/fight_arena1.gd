@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var bank = $Bank
 @onready var player_infos = $PlayerInfo
+@onready var timer = $Timer
 
 
 var player_scene = preload("res://scene/robot_3d.tscn")
@@ -13,6 +14,9 @@ var numberplayer = 1
 var colors = [Color(1,0,0),Color(0,1,0), Color(0,0,1), Color(1,1,0)]
 
 func _ready():
+	timer.start()
+	player_infos.get_child(4).text = str(int(timer.time_left)+1)
+	
 	for i in range(0,numberplayer):
 		var player = player_scene.instantiate()
 		player.set_team(i)
@@ -21,6 +25,7 @@ func _ready():
 		player.get_child(0).connect("died",  Callable(self, "_died").bind(i))
 		#player.connect("died",  Callable(self, "_died").bind(i))
 		player.get_child(0).get_child(2).get_active_material(0).albedo_color = colors[player.team]
+		player.process_mode = PROCESS_MODE_DISABLED
 		
 	for i in range(0,4-numberplayer):
 		var new_ai_bot = ai_bot_scene.instantiate()
@@ -29,14 +34,20 @@ func _ready():
 		print(new_ai_bot.get_child(0).get_child(2).get_active_material(0))
 		new_ai_bot.connect("died", Callable(self,"_died").bind(new_ai_bot.team))
 		new_ai_bot.get_child(0).get_child(new_ai_bot.team+1).visible = true
+		new_ai_bot.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta):
+	if timer.is_stopped() == false:
+		player_infos.get_child(4).text = str(int(timer.time_left)+1)
+
 	if Input.is_action_just_pressed("z"):
 		if players[0].get_child(0).global_transform.origin.distance_to(bank.global_transform.origin) < bank.scale.x+2:
 			if players[0].get_num_scrap() > 1:
 				players[0].remove_a_scrap()
 				bank.add_scrap()
-				player_infos.get_child(0).get_child(1).text = "scraps : "+ str(bank.number_scrap) 
+				player_infos.get_child(0).get_child(1).text = "scraps : "+ str(bank.number_scrap)
+				if bank.number_scrap == 4:
+					get_tree().change_scene_to_file("res://scene/endScreen.tscn")
 
 func _on_player_attacked(player_id):
 	for bot in players:
@@ -59,3 +70,9 @@ func respawn(person):
 	add_child(person)
 	person.number_scrap = 5
 	
+
+
+func _on_timer_timeout() -> void:
+	player_infos.get_child(4).visible = false
+	for i in players:
+		i.process_mode = Node.PROCESS_MODE_INHERIT

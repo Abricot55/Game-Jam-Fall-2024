@@ -35,6 +35,7 @@ func remove_a_scrap():
 		emit_signal("died")
 
 func attacked():
+	character.knockback()
 	if number_scrap < 5:
 		number_scrap -= 2
 	elif number_scrap < 10:
@@ -45,6 +46,9 @@ func attacked():
 		number_scrap -= 5
 	if number_scrap <= 0:
 		emit_signal("died")
+		character.velocity = Vector3(0,0,0)
+		character.knockback_direction = Vector3(0,0,0)
+		character.knockback_timer = 0
 		
 func set_team(num : int):
 	team = num

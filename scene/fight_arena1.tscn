@@ -18,10 +18,10 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 9.584, 2.5, -14.219)
 transform = Transform3D(1, 0, 0, 0, 0.137202, 0.990543, 0, -0.990543, 0.137203, 0, 15.3784, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.786116, 0.618079, 0, -0.618079, 0.786116, 0, 15.8091, 13.3444)
+transform = Transform3D(1, 0, 0, 0, 0.786116, 0.618079, 0, -0.618079, 0.786116, 0, 48.5866, 40.5585)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(32.6129, 0, 0, 0, 0.448967, 0, 0, 0, 50.651, 0, -1.19596, 0)
+transform = Transform3D(98.831, 0, 0, 0, 0.448967, 0, 0, 0, 50.651, 0, -1.19596, 0)
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -30,3 +30,45 @@ mesh = SubResource("BoxMesh_vq5os")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="PlayerInfo" parent="." instance=ExtResource("4_opd4e")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.77095, -0.447344, 0, 32.495, -0.0381464, 0, 0, 0, 50.651, 49.2296, -1.19596, 0)
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.77095, -0.447344, 0, 32.495, -0.0381464, 0, 0, 0, 50.651, -49.4703, -1.19596, 0)
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.000338747, -5.47381e-05, -143.798, 32.5458, -0.0382139, 0, -2.77529, -0.448135, 0.0175643, -19.6911, -3.99762, 23.2543)
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.000338747, -5.47381e-05, -143.798, 32.5458, -0.0382139, 0, -2.77529, -0.448135, 0.0175643, -19.6911, -3.99762, -25.5628)
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
