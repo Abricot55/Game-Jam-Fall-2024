@@ -17,7 +17,7 @@ var dash_timer = 0
 
 var ATTACK_RANGE = 5
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity*delta
 	else :
