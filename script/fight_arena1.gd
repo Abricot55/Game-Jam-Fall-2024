@@ -8,6 +8,7 @@ extends Node3D
 var player_scene = preload("res://scene/robot_3d.tscn")
 var ai_bot_scene = preload("res://scene/aI_bot.tscn")
 var final_scene = preload("res://scene/endScreen.tscn")
+var power_up_scene = preload("res://scene/power_up.tscn")
 
 var players = []
 var colors = [Color(1,0,0),Color(0,1,0), Color(0,0,1), Color(1,1,0)]
@@ -15,6 +16,7 @@ var respawn_positions = [Vector3(-15, 30, -15), Vector3(15, 30, 15), Vector3(-15
 
 
 func _ready():
+	make_power_up_appear()
 	get_child(1).team = 1
 	get_child(2).team = 2
 	get_child(3).team = 3
@@ -135,3 +137,9 @@ func change_bank_color():
 	bank2.get_child(1).visible = true
 	bank3.get_child(2).visible = true
 	bank4.get_child(3).visible = true
+
+func make_power_up_appear():
+	var power = power_up_scene.instantiate()
+	power.set_wich(randi() % 3)
+	power.position = Vector3(0,5,0)
+	add_child(power)

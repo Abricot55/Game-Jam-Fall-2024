@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2ssoasj3jsxk"]
+
+[ext_resource type="Script" path="res://script/power_up.gd" id="1_yx1n7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1epu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qprj"]
+albedo_color = Color(0.176471, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5j1vj"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_12xwg"]
+height = 6.386
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehfhv"]
+albedo_color = Color(1, 0.0313726, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jt68m"]
+albedo_color = Color(1, 1, 0.101961, 1)
+
+[node name="PowerUp" type="Node3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+script = ExtResource("1_yx1n7")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.707107, 1.28028e-08, 0.707107, 0.707107, -3.09086e-08, -0.707107, 1.28028e-08, 1, -3.09086e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_k1epu")
+
+[node name="shield" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 1.28028e-08, 0.707107, 0.63645, 0.435734, -0.63645, -0.30811, 0.900076, 0.30811, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_7qprj")
+mesh = SubResource("BoxMesh_5j1vj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="shield"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shield/StaticBody3D"]
+transform = Transform3D(0.353553, 0.318225, -0.154055, 1.17078e-09, 0.217867, 0.450038, 0.353553, -0.318225, 0.154055, -0.646356, -0.442516, 0.646356)
+shape = SubResource("CylinderShape3D_12xwg")
+
+[node name="speed" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 1.28028e-08, 0.707107, 0.63645, 0.435734, -0.63645, -0.30811, 0.900076, 0.30811, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_ehfhv")
+mesh = SubResource("BoxMesh_5j1vj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="speed"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="speed/StaticBody3D"]
+transform = Transform3D(0.353553, 0.318225, -0.154055, 1.17078e-09, 0.217867, 0.450038, 0.353553, -0.318225, 0.154055, -0.646356, -0.442516, 0.646356)
+shape = SubResource("CylinderShape3D_12xwg")
+
+[node name="freeze" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 1.28028e-08, 0.707107, 0.63645, 0.435734, -0.63645, -0.30811, 0.900076, 0.30811, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_jt68m")
+mesh = SubResource("BoxMesh_5j1vj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="freeze"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="freeze/StaticBody3D"]
+transform = Transform3D(0.353553, 0.318225, -0.154055, 1.17078e-09, 0.217867, 0.450038, 0.353553, -0.318225, 0.154055, -0.646356, -0.442516, 0.646356)
+shape = SubResource("CylinderShape3D_12xwg")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

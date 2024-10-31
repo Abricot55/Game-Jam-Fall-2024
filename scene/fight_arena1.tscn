@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdydh8un3gkdn"]
+[gd_scene load_steps=11 format=3 uid="uid://cdydh8un3gkdn"]
 
 [ext_resource type="Script" path="res://script/fight_arena1.gd" id="1_8rvvr"]
 [ext_resource type="PackedScene" uid="uid://blrgn1ppm75nf" path="res://scene/bank.tscn" id="1_xb17v"]
@@ -7,24 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://cx1gnqchlamnu" path="res://arene.glb" id="5_lqxmp"]
 [ext_resource type="PackedScene" uid="uid://buh4d461artpf" path="res://arene.fbx" id="6_q72yu"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v47se"]
-ground_horizon_color = Color(0.652043, 0.36406, 0.0626525, 1)
-sun_angle_max = 259.09
+[sub_resource type="Sky" id="Sky_y8mug"]
 
-[sub_resource type="Sky" id="Sky_08ykr"]
-sky_material = SubResource("ProceduralSkyMaterial_v47se")
-
-[sub_resource type="Environment" id="Environment_62gkf"]
+[sub_resource type="Environment" id="Environment_85psg"]
 background_mode = 2
-background_color = Color(0.338255, 0.282742, 0.150663, 1)
-background_energy_multiplier = 2.0
-sky = SubResource("Sky_08ykr")
-sdfgi_read_sky_light = false
+sky = SubResource("Sky_y8mug")
 fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.71338, 0.504098, 0.187601, 1)
-fog_light_energy = 0.5
-fog_density = 0.1
+fog_light_color = Color(0.784314, 0.552941, 0.384314, 1)
+fog_light_energy = 1.3
+fog_density = 0.006
 
 [sub_resource type="BoxMesh" id="BoxMesh_vq5os"]
 
@@ -67,9 +58,10 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -3.37075, 0)
 visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_62gkf")
+environment = SubResource("Environment_85psg")
 
 [node name="walls" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.83052, 0)
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="walls"]
 transform = Transform3D(2.08874e-14, 1.96597e-08, -17.2754, 10.9319, -1.96597e-08, 0, -4.77849e-07, -0.449761, -7.5513e-07, -17.3922, 0, -47.329)
@@ -193,7 +185,7 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="walls"]
-transform = Transform3D(3.2725e-13, 1.53116e-08, -329.393, 171.274, -1.53116e-08, 0, -7.48662e-06, -0.35029, -1.43982e-05, -19.6911, -3.99762, 54.1511)
+transform = Transform3D(3.2725e-13, 1.53116e-08, -329.393, 171.274, -1.53116e-08, 0, -7.48662e-06, -0.35029, -1.43982e-05, -19.6911, -3.99762, 69.6045)
 visible = false
 mesh = SubResource("BoxMesh_vq5os")
 skeleton = NodePath("../..")
