@@ -4,6 +4,7 @@ class_name Debris
 
 static var this_scene = preload("res://scene/debris/nut_debris.tscn")
 
+
 static func summon_at_random(parent: Node3D, pos: Vector3, num: int) -> void:
 	print(pos, num)
 	for i in range(num):

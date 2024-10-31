@@ -20,52 +20,62 @@ func _ready():
 	get_child(3).team = 3
 	GameData.banks = [bank, $Bank2, $Bank3, $Bank4]
 	change_bank_color()
-	for i in range(GameData.num_bot + GameData.num_player):
-		players.append(null)
 	timer.start()
 	player_infos.countdown.text = str(int(timer.time_left)+1)
-	for i in range(0,GameData.num_player):
-		var player = player_scene.instantiate()
-		player.set_team(i)
-		respawn(player, respawn_positions[i])
-		player.get_child(0).connect("attack",  Callable(self, "_on_player_attacked").bind(i))
-		player.get_child(0).connect("died",  Callable(self, "_died").bind(i))
-		player.connect("scrap_changed", Callable(self, "changeLabel").bind(i))
-		player.connect("died",  Callable(self, "_died").bind(i))
-		player.get_child(0).get_child(2).get_active_material(0).albedo_color = colors[player.team]
-		player.process_mode = PROCESS_MODE_DISABLED
-		
-	for i in range(0,GameData.num_bot):
-		var new_ai_bot = ai_bot_scene.instantiate()
-		new_ai_bot.team = i + GameData.num_player
-		respawn(new_ai_bot,respawn_positions[new_ai_bot.team])
-		print(new_ai_bot.get_child(0).get_child(2).get_active_material(0))
-		new_ai_bot.connect("died", Callable(self,"_died").bind(new_ai_bot.team))
-		new_ai_bot.get_child(0).connect("died", Callable(self,"_died").bind(new_ai_bot.team))
-		new_ai_bot.get_child(0).connect("banked", Callable(self,"_put_in_bank").bind(new_ai_bot.team))
-		new_ai_bot.connect("scrap_changed", Callable(self, "changeLabel").bind(new_ai_bot.team))
-		new_ai_bot.get_child(0).connect("attack",  Callable(self, "_on_player_attacked").bind(new_ai_bot.team))
-		new_ai_bot.get_child(0).get_child(new_ai_bot.team+1).visible = true
-		new_ai_bot.process_mode = Node.PROCESS_MODE_DISABLED
+	set_up_players()
 	GameData.players = players
 
+func set_up_players():
+	var num_pl = 0
+	var cmp = 0
+	for i in GameData.selection_player:
+		players.append(null)
+		if i == "Joueur":
+			var player = player_scene.instantiate()
+			player.get_child(0).playernum = num_pl % 2
+			print(player.get_child(0).playernum)
+			num_pl+=1
+			player.set_team(cmp)
+			print(player.team)
+			respawn(player, respawn_positions[cmp])
+			player.get_child(0).connect("attack",  Callable(self, "_on_player_attacked").bind(cmp))
+			player.get_child(0).connect("died",  Callable(self, "_died").bind(cmp))
+			player.connect("scrap_changed", Callable(self, "changeLabel").bind(cmp))
+			player.connect("died",  Callable(self, "_died").bind(cmp))
+			player.get_child(0).connect("action", Callable(self, "_do_action").bind(cmp))
+			player.get_child(0).get_child(player.team+2).visible = true
+			player.process_mode = PROCESS_MODE_DISABLED
+		elif i == "CPU":
+			var new_ai_bot = ai_bot_scene.instantiate()
+			new_ai_bot.team = cmp
+			respawn(new_ai_bot,respawn_positions[new_ai_bot.team])
+			new_ai_bot.connect("died", Callable(self,"_died").bind(new_ai_bot.team))
+			new_ai_bot.get_child(0).connect("died", Callable(self,"_died").bind(new_ai_bot.team))
+			new_ai_bot.get_child(0).connect("banked", Callable(self,"_put_in_bank").bind(new_ai_bot.team))
+			new_ai_bot.connect("scrap_changed", Callable(self, "changeLabel").bind(new_ai_bot.team))
+			new_ai_bot.get_child(0).connect("attack",  Callable(self, "_on_player_attacked").bind(new_ai_bot.team))
+			new_ai_bot.get_child(0).get_child(new_ai_bot.team+2).visible = true
+			new_ai_bot.process_mode = Node.PROCESS_MODE_DISABLED
+		cmp += 1
+	
 func _process(_delta):
 	if timer.is_stopped() == false:
 		player_infos.countdown.text = str(int(timer.time_left)+1)
-
-	if Input.is_action_just_pressed("z"):
-		if players[0].get_child(0).global_transform.origin.distance_to(bank.global_transform.origin) < bank.scale.x+2 :
-			if players[0].get_num_scrap() > 1:
-				players[0].remove_a_scrap()
-				bank.add_scrap()
-				player_infos.players_info[0].get_child(3).text = "Banked : "+ str(bank.number_scrap)
-				if bank.number_scrap == 30:
-					var scene = final_scene.instantiate()
-					scene.get_child(0).visible = true
-					get_tree().get_root().add_child(scene)
-					get_tree().current_scene.queue_free()
 	GameData.players = players
 
+func _do_action(player_id):
+	for banki in GameData.banks:
+		if players[player_id].get_child(0).global_transform.origin.distance_to(banki.global_transform.origin) < banki.scale.x+2 and banki.team == player_id:
+			if players[player_id].get_num_scrap() > 1:
+				players[player_id].remove_a_scrap()
+				banki.add_scrap()
+				player_infos.players_info[player_id].get_child(3).text = "Banked : "+ str(banki.number_scrap)
+				if banki.number_scrap == 30:
+					var scene = final_scene.instantiate()
+					scene.get_child(player_id).visible = true
+					get_tree().get_root().add_child(scene)
+					get_tree().current_scene.queue_free()
+					
 func _on_player_attacked(player_id):
 	for bot in players:
 		if bot != null:
@@ -109,7 +119,8 @@ func _put_in_bank(player_id):
 func _on_timer_timeout() -> void:
 	player_infos.countdown.visible = false
 	for i in players:
-		i.process_mode = Node.PROCESS_MODE_INHERIT
+		if i != null:
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 
 func changeLabel(player_id):
 	if players[player_id] != null:

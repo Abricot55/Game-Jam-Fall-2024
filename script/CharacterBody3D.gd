@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var speed: float = 15.0
+@export var speed: float = 25.0
 @export var rotation_speed: float = 5.0
 
 @onready var animation = $robot/AnimationPlayer
@@ -11,8 +11,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 signal attack
 signal died
+signal action
 
-var dash_duration = 0.05
+var dash_duration = 0.03
 var dash_timer = 0
 
 var ATTACK_RANGE = 5
@@ -20,6 +21,7 @@ var ATTACK_RANGE = 5
 var knockback_direction
 var knockback_duration = 1
 var knockback_timer = 0
+var playernum = 0
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -28,26 +30,36 @@ func _physics_process(delta: float) -> void:
 	else :
 		velocity.y = 0
 		dash_duration = 0.05
-
-	var input_direction = Vector3(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		0,
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	).normalized()
-
-	# For the attack animation
-	if Input.is_action_just_pressed("space"):
-		cannot_move = true
-		animation.play("attackspinlonghands")
-		emit_signal("attack")
-		
-	if Input.is_action_just_pressed("h"):
-		cannot_move = true
-		animation.play("hello")
+	var input_direction
 	
-	if Input.is_action_just_pressed("shift"):
-		dash_timer = dash_duration
-		
+	match playernum:
+		0:  
+			input_direction = Vector3(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),0,Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")).normalized()
+			if Input.is_action_just_pressed("space"):
+				cannot_move = true
+				animation.play("attackspinlonghands")
+				emit_signal("attack")
+			if Input.is_action_just_pressed("h"):
+				cannot_move = true
+				animation.play("hello")
+			if Input.is_action_just_pressed("n"):
+				dash_timer = dash_duration
+			if Input.is_action_just_pressed("m"):
+				emit_signal("action")
+		1: 
+			input_direction = Vector3(Input.get_action_strength("d") - Input.get_action_strength("a"),0,Input.get_action_strength("s")-Input.get_action_strength("w")).normalized()
+			if Input.is_action_just_pressed("q"):
+				cannot_move = true
+				animation.play("attackspinlonghands")
+				emit_signal("attack")
+			if Input.is_action_just_pressed("z"):
+				cannot_move = true
+				animation.play("hello")
+			if Input.is_action_just_pressed("tab"):
+				dash_timer = dash_duration
+			if Input.is_action_just_pressed("shift"):
+				emit_signal("action")
+
 	if dash_timer > 0:
 		velocity = velocity*30
 		dash_timer -= delta

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var speed: float = 15.0  # Speed of movement
+@export var speed: float = 25.0  # Speed of movement
 @export var change_direction_time: float = 4  # Time before changing direction
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")  # Gravity value
 @onready var animation = $robot/AnimationPlayer
@@ -17,7 +17,7 @@ var whichBot = 0
 var destination = Vector3(0,0,0)
 
 var bipolarTimer:Timer
-var dash_duration = 0.05
+var dash_duration = 0.03
 var dash_timer = 0
 
 var ATTACK_RANGE = 5

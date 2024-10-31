@@ -6,19 +6,19 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qbt76"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3nuc"]
-albedo_color = Color(0, 0, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37m0e"]
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gcply"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3nuc"]
+albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g2fp"]
 albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxvk5"]
 albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37m0e"]
-albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_y5u43"]
 height = 0.5
@@ -36,6 +36,12 @@ script = ExtResource("2_udvki")
 transform = Transform3D(4.3, 0, 0, 0, 4.3, 0, 0, 0, 4.3, 0, 4.22489, 0)
 shape = SubResource("CapsuleShape3D_qbt76")
 
+[node name="MeshInstance3Dred" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_37m0e")
+mesh = SubResource("CylinderMesh_gcply")
+
 [node name="MeshInstance3Dblue" type="MeshInstance3D" parent="CharacterBody3D"]
 transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
 visible = false
@@ -52,12 +58,6 @@ mesh = SubResource("CylinderMesh_gcply")
 transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_hxvk5")
-mesh = SubResource("CylinderMesh_gcply")
-
-[node name="MeshInstance3Dred" type="MeshInstance3D" parent="CharacterBody3D"]
-transform = Transform3D(5, 0, 0, 0, 0.01, 0, 0, 0, 5, 0, 0, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_37m0e")
 mesh = SubResource("CylinderMesh_gcply")
 
 [node name="DropPosition" type="Node3D" parent="CharacterBody3D"]

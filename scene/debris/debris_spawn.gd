@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var max_debris: int = 5
+@export var max_debris: int = 15
 @export var spawn_rate: float = 2.0
 
 @export_category("Spawn Position")
