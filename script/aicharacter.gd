@@ -21,6 +21,7 @@ var dash_duration = 0.03
 var dash_timer = 0
 
 var ATTACK_RANGE = 5
+var CANT_MOVE = false
 var gamestyle = 0
 
 var cash_in = false
@@ -59,36 +60,36 @@ func _on_Timer_timeout() -> void:
 
 
 func _process(delta: float) -> void:
-
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-		dash_duration = 0
-	else:
-		velocity.y = 0 
-		dash_duration = 0.05
-		if !cash_in:
-			match gamestyle:
-				0: aggressiveGuy(delta)
-				1: assassin(delta)
-				2: random_attack(delta)
-				3: closest_attack(delta)
-				4: collectionner(delta)
+	if not CANT_MOVE:
+		if not is_on_floor():
+			velocity.y -= gravity * delta
+			dash_duration = 0
 		else:
-			go_cash_in(delta)
-			
-		var target_rotation = 0
-		if velocity.x < 0:
-			target_rotation = velocity.angle_to(Vector3.FORWARD)
-		else:
-			target_rotation = -velocity.angle_to(Vector3.FORWARD)
-		rotation.y = lerp_angle(rotation.y, target_rotation, 5 * delta)
-		if knockback_timer > 0:
-			velocity = knockback_direction
-			knockback_timer -= delta
-			move_and_slide()
-	move_and_slide()
-	if position.y < -15:
-		emit_signal("died")
+			velocity.y = 0 
+			dash_duration = 0.05
+			if !cash_in:
+				match gamestyle:
+					0: aggressiveGuy(delta)
+					1: assassin(delta)
+					2: random_attack(delta)
+					3: closest_attack(delta)
+					4: collectionner(delta)
+			else:
+				go_cash_in(delta)
+				
+			var target_rotation = 0
+			if velocity.x < 0:
+				target_rotation = velocity.angle_to(Vector3.FORWARD)
+			else:
+				target_rotation = -velocity.angle_to(Vector3.FORWARD)
+			rotation.y = lerp_angle(rotation.y, target_rotation, 5 * delta)
+			if knockback_timer > 0:
+				velocity = knockback_direction
+				knockback_timer -= delta
+				move_and_slide()
+		move_and_slide()
+		if position.y < -15:
+			emit_signal("died")
 
 func knockback():
 	var random_x = randf_range(-1.0, 1.0)
@@ -167,6 +168,7 @@ func do_movement_thing(delta):
 	if !animation.is_playing():
 		animation.play("walking")
 	if global_transform.origin.distance_to(destination) < ATTACK_RANGE:
+		await get_tree().create_timer(randf()).timeout
 		emit_signal("attack")
 		animation.play("attackspinlonghands")
 		destination = Vector3(0,0,0)
@@ -215,6 +217,7 @@ func collectionner(delta):
 	if s != null:
 		for i in all_dudes():
 			if global_transform.origin.distance_to(i.get_child(0).position) < ATTACK_RANGE:
+				await get_tree().create_timer(randf()).timeout
 				emit_signal("attack")
 				animation.play("attackspinlonghands")
 				destination = Vector3(0,0,0)
@@ -255,6 +258,7 @@ func fuyeur(delta):
 	if s != null:
 		for i in all_dudes():
 			if global_transform.origin.distance_to(i.get_child(0).position) < ATTACK_RANGE:
+				await get_tree().create_timer(randf()).timeout
 				emit_signal("attack")
 				animation.play("attackspinlonghands")
 				destination = Vector3(0,0,0)

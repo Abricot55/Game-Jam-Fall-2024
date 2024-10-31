@@ -16,7 +16,6 @@ var respawn_positions = [Vector3(-15, 30, -15), Vector3(15, 30, 15), Vector3(-15
 
 
 func _ready():
-	make_power_up_appear()
 	get_child(1).team = 1
 	get_child(2).team = 2
 	get_child(3).team = 3
@@ -26,6 +25,11 @@ func _ready():
 	player_infos.countdown.text = str(int(timer.time_left)+1)
 	set_up_players()
 	GameData.players = players
+	var powertime = Timer.new()
+	powertime.wait_time = 15
+	powertime.connect("timeout",Callable(self,"make_power_up_appear"))
+	add_child(powertime)
+	powertime.start()
 
 func set_up_players():
 	var num_pl = 0
@@ -79,12 +83,16 @@ func _do_action(player_id):
 					get_tree().current_scene.queue_free()
 					
 func _on_player_attacked(player_id):
-	for bot in players:
-		if bot != null:
-			if bot.team != player_id:
-				if bot.realposition != null:
-					if players[player_id].in_attack_area(bot.realposition):
-						bot.attacked()
+	if players[player_id] != null:
+		for bot in players:
+			if bot != null:
+				if bot.team != player_id:
+					if bot.realposition != null:
+						if players[player_id].in_attack_area(bot.realposition):
+							if players[player_id].att_freeze == true:
+								bot.is_frozen()
+								players[player_id].att_freeze = false
+							bot.attacked()
 
 func _died(player_id):
 	var person = players[player_id]
@@ -139,7 +147,8 @@ func change_bank_color():
 	bank4.get_child(3).visible = true
 
 func make_power_up_appear():
+	var positions = [Vector3(-34.004,12.001,-2.595), Vector3(-2.743,5,21.549), Vector3(35.078,12.001,-4.036), Vector3(-1.024,12.001,-28.826) ]
 	var power = power_up_scene.instantiate()
 	power.set_wich(randi() % 3)
-	power.position = Vector3(0,5,0)
+	power.position = positions[randi() % positions.size()]
 	add_child(power)

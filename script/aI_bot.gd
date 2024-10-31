@@ -22,7 +22,9 @@ signal scrap_changed
 var ATTACK_RANGE = 5
 var realposition
 
-
+var shield = false
+var att_freeze = false
+var frozen = false
 var FRONT_ATTACK_RANGE = 5
 
 func _ready():
@@ -50,29 +52,30 @@ func remove_a_scrap():
 		emit_signal("died")
 
 func attacked():
-	var scene = self.get_parent_node_3d()
-	var drop_pos = drop_position.global_position
-	character.knockback()
-	if number_scrap < 5:
-		number_scrap -= 2
-		Debris.summon_at_random(scene, drop_pos, 2)
-	elif number_scrap < 10:
-		number_scrap -= 3
-		Debris.summon_at_random(scene, drop_pos, 3)
-	elif number_scrap < 15:
-		number_scrap -= 4
-		Debris.summon_at_random(scene, drop_pos, 4)
-	elif number_scrap < 20:
-		number_scrap -= 5
-		Debris.summon_at_random(scene, drop_pos, 5)
-	if number_scrap <= 9:
-		character.cash_in = false
-	emit_signal("scrap_changed")
-	if number_scrap <= 0:
-		emit_signal("died")
-		character.velocity = Vector3(0,0,0)
-		character.knockback_direction = Vector3(0,0,0)
-		character.knockback_timer = 0
+	if not shield:
+		var scene = self.get_parent_node_3d()
+		var drop_pos = drop_position.global_position
+		character.knockback()
+		if number_scrap < 5:
+			number_scrap -= 2
+			Debris.summon_at_random(scene, drop_pos, 2)
+		elif number_scrap < 10:
+			number_scrap -= 3
+			Debris.summon_at_random(scene, drop_pos, 3)
+		elif number_scrap < 15:
+			number_scrap -= 4
+			Debris.summon_at_random(scene, drop_pos, 4)
+		elif number_scrap < 20:
+			number_scrap -= 5
+			Debris.summon_at_random(scene, drop_pos, 5)
+		if number_scrap <= 9:
+			character.cash_in = false
+		emit_signal("scrap_changed")
+		if number_scrap <= 0:
+			emit_signal("died")
+			character.velocity = Vector3(0,0,0)
+			character.knockback_direction = Vector3(0,0,0)
+			character.knockback_timer = 0
 		
 func set_team(num : int):
 	team = num
@@ -86,3 +89,45 @@ func in_attack_area(position_other : Vector3):
 		return true
 	return false
 	
+func activate_super_speed():
+		var speedTimer = Timer.new()
+		speedTimer.wait_time = 6
+		speedTimer.one_shot = true
+		speedTimer.connect("timeout",Callable(self,"_on_speed_timeout"))
+		character.speed = 50
+		add_child(speedTimer)
+		speedTimer.start()
+
+func _on_speed_timeout():
+	character.speed = 25
+
+func activate_shield():
+	var speedTimer = Timer.new()
+	speedTimer.wait_time = 3
+	speedTimer.one_shot = true
+	speedTimer.connect("timeout",Callable(self,"on_shield_timeout").bind(speedTimer))
+	shield = true
+	$CharacterBody3D/shield_mesh.visible = true
+	add_child(speedTimer)
+	speedTimer.start()
+
+func on_shield_timeout(timer):
+	shield = false
+	$CharacterBody3D/shield_mesh.visible = false
+	remove_child(timer)
+
+func activate_freeze():
+	att_freeze = true
+
+func is_frozen():
+	character.CANT_MOVE = true
+	var speedTimer = Timer.new()
+	speedTimer.wait_time = 3
+	speedTimer.one_shot = true
+	speedTimer.connect("timeout",Callable(self,"on_freeze_timeout").bind(speedTimer))
+	add_child(speedTimer)
+	speedTimer.start()
+	
+func on_freeze_timeout(timer):
+	remove_child(timer)
+	character.CANT_MOVE = false

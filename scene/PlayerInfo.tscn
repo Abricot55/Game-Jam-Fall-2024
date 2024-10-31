@@ -9,15 +9,19 @@
 [ext_resource type="Texture2D" uid="uid://o1gy1ciat5u0" path="res://assets/greenCog_transparent.png" id="5_k5p8q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nrky4"]
+render_priority = 0
 shader = ExtResource("2_yde4p")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54vsu"]
+render_priority = 0
 shader = ExtResource("2_yde4p")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4yjv"]
+render_priority = 0
 shader = ExtResource("2_yde4p")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejbse"]
+render_priority = 0
 shader = ExtResource("2_yde4p")
 
 [sub_resource type="LabelSettings" id="LabelSettings_g8qj0"]

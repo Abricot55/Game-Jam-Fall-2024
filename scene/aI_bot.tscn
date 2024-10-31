@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxcdtxef4cvkx"]
+[gd_scene load_steps=13 format=3 uid="uid://dxcdtxef4cvkx"]
 
 [ext_resource type="PackedScene" uid="uid://c72qkecuoah67" path="res://GLTFrobot/robot.gltf" id="1_ldwtf"]
 [ext_resource type="Script" path="res://script/aI_bot.gd" id="1_qj85r"]
@@ -23,6 +23,12 @@ albedo_color = Color(0, 1, 0, 1)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_y5u43"]
 height = 0.5
 radius = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44l0i"]
+transparency = 1
+albedo_color = Color(0.0823529, 1, 1, 0.243137)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_axgrx"]
 
 [node name="AIbot" type="Node3D"]
 script = ExtResource("1_qj85r")
@@ -69,3 +75,9 @@ collision_mask = 2
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D/PickupArea3D"]
 shape = SubResource("CylinderShape3D_y5u43")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 3.89726, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_44l0i")
+mesh = SubResource("CapsuleMesh_axgrx")
