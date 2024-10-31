@@ -19,6 +19,7 @@ func _ready():
 	get_child(2).team = 2
 	get_child(3).team = 3
 	GameData.banks = [bank, $Bank2, $Bank3, $Bank4]
+	change_bank_color()
 	for i in range(GameData.num_bot + GameData.num_player):
 		players.append(null)
 	timer.start()
@@ -46,6 +47,7 @@ func _ready():
 		new_ai_bot.get_child(0).connect("attack",  Callable(self, "_on_player_attacked").bind(new_ai_bot.team))
 		new_ai_bot.get_child(0).get_child(new_ai_bot.team+1).visible = true
 		new_ai_bot.process_mode = Node.PROCESS_MODE_DISABLED
+	GameData.players = players
 
 func _process(_delta):
 	if timer.is_stopped() == false:
@@ -76,19 +78,23 @@ func _died(player_id):
 	var person = players[player_id]
 	players[player_id] = null
 	remove_child(person)
+	GameData.players = players
+	player_infos.players_info[person.team].material = GameData.shader_material
 	await get_tree().create_timer(3.0).timeout # Wait for 3 seconds
 	respawn(person)
 
-func respawn(person, position = null): 
-	if position == null:
+func respawn(person, positionr = null): 
+	if positionr == null:
 		person.get_child(0).position = respawn_positions[randi() % respawn_positions.size()]
 	else :
-		person.get_child(0).position = position
+		person.get_child(0).position = positionr
 	person.get_child(0).velocity = Vector3(0,0,0)
 	players[person.team] = person
 	add_child(person)
 	person.number_scrap = 5
 	changeLabel(person.team)
+	GameData.players = players
+	player_infos.players_info[person.team].material = null
 	
 func _put_in_bank(player_id):
 	get_child(player_id).add_scrap()
@@ -109,3 +115,12 @@ func changeLabel(player_id):
 	if players[player_id] != null:
 		player_infos.players_info[player_id].get_child(1).text = "Scraps : "+ str(players[player_id].number_scrap)
 	
+
+func change_bank_color():
+	var bank2 = $Bank2
+	var bank3 = $Bank3
+	var bank4 = $Bank4
+	bank.get_child(0).visible = true
+	bank2.get_child(1).visible = true
+	bank3.get_child(2).visible = true
+	bank4.get_child(3).visible = true

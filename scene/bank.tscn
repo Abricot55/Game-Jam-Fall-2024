@@ -1,24 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://blrgn1ppm75nf"]
+[gd_scene load_steps=8 format=3 uid="uid://blrgn1ppm75nf"]
 
 [ext_resource type="Script" path="res://script/Bank.gd" id="1_i8s4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8w2m"]
-albedo_color = Color(0.113725, 0.12549, 0.141176, 1)
-metallic = 1.0
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.42
 roughness = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_b4cfv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_apxwf"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5hm2"]
+albedo_color = Color(0, 0, 1, 1)
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fa650"]
+albedo_color = Color(1, 1, 0, 1)
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxvmx"]
+albedo_color = Color(0, 1, 0, 1)
+metallic = 0.5
+
 [node name="Bank" type="Node3D"]
 script = ExtResource("1_i8s4c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="redBank" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_h8w2m")
 mesh = SubResource("BoxMesh_b4cfv")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="redBank"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="redBank/StaticBody3D"]
+shape = SubResource("BoxShape3D_apxwf")
+
+[node name="blueBank" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_e5hm2")
+mesh = SubResource("BoxMesh_b4cfv")
+skeleton = NodePath("../redBank")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="blueBank"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blueBank/StaticBody3D"]
+shape = SubResource("BoxShape3D_apxwf")
+
+[node name="yelloBank" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_fa650")
+mesh = SubResource("BoxMesh_b4cfv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="yelloBank"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="yelloBank/StaticBody3D"]
+shape = SubResource("BoxShape3D_apxwf")
+
+[node name="greenBank" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_oxvmx")
+mesh = SubResource("BoxMesh_b4cfv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="greenBank"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="greenBank/StaticBody3D"]
 shape = SubResource("BoxShape3D_apxwf")

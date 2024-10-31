@@ -1,37 +1,58 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdydh8un3gkdn"]
+[gd_scene load_steps=11 format=3 uid="uid://cdydh8un3gkdn"]
 
 [ext_resource type="Script" path="res://script/fight_arena1.gd" id="1_8rvvr"]
 [ext_resource type="PackedScene" uid="uid://blrgn1ppm75nf" path="res://scene/bank.tscn" id="1_xb17v"]
 [ext_resource type="PackedScene" uid="uid://dynwvcvqulsnv" path="res://scene/debris/debris_spawn.tscn" id="4_22dfn"]
 [ext_resource type="PackedScene" uid="uid://csk2xkuppcx6d" path="res://scene/PlayerInfo.tscn" id="4_opd4e"]
+[ext_resource type="PackedScene" uid="uid://cx1gnqchlamnu" path="res://arene.glb" id="5_lqxmp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vq5os"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oglvb"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v47se"]
+ground_horizon_color = Color(0.652043, 0.36406, 0.0626525, 1)
+sun_angle_max = 259.09
+
+[sub_resource type="Sky" id="Sky_08ykr"]
+sky_material = SubResource("ProceduralSkyMaterial_v47se")
+
+[sub_resource type="Environment" id="Environment_62gkf"]
+background_mode = 2
+background_color = Color(0.338255, 0.282742, 0.150663, 1)
+background_energy_multiplier = 2.0
+sky = SubResource("Sky_08ykr")
+sdfgi_read_sky_light = false
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.71338, 0.504098, 0.187601, 1)
+fog_light_energy = 0.5
+fog_density = 0.1
+
 [node name="fight_map1" type="Node3D"]
 script = ExtResource("1_8rvvr")
 
 [node name="Bank" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -25.3666, 2.5, -14.219)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -14.726, 2.5, 0.303812)
 
 [node name="Bank2" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 34.8255, 2.5, -14.219)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 17.5738, 2.5, -1.5244)
 
 [node name="Bank3" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -28.2897, 2.5, 10.0556)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -14.857, 2.5, 45.3737)
 
 [node name="Bank4" parent="." instance=ExtResource("1_xb17v")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 33.6895, 2.5, 6.58571)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 19.3203, 2.5, 45.4099)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.137202, 0.990543, 0, -0.990543, 0.137203, 0, 15.3784, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.786116, 0.618079, 0, -0.618079, 0.786116, 0, 48.5866, 40.5585)
+transform = Transform3D(1, 0, 0, 0, 0.622897, 0.782304, 0, -0.782304, 0.622897, -0.0816045, 62.4613, 63.3461)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(98.831, 0, 0, 0, 0.448967, 0, 0, 0, 50.651, 0, -1.19596, 0)
+transform = Transform3D(135.271, 0, 0, 0, 0.448967, 0, 0, 0, 262.163, 0, -1.19596, 0)
+visible = false
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -46,7 +67,8 @@ wait_time = 3.0
 one_shot = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-2.77095, -0.447344, 0, 32.495, -0.0381464, 0, 0, 0, 50.651, 49.2296, -1.19596, 0)
+transform = Transform3D(-8.09604, -0.374036, 0, 94.9424, -0.0318952, 0, 0, 0, 976.364, 47.3494, -1.19596, 0)
+visible = false
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
@@ -55,7 +77,8 @@ mesh = SubResource("BoxMesh_vq5os")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-2.77095, -0.447344, 0, 32.495, -0.0381464, 0, 0, 0, 50.651, -49.4703, -1.19596, 0)
+transform = Transform3D(-7.28558e-06, -0.448967, 0, 166.675, -1.9625e-08, 0, 0, 0, 683.37, -44.8104, -1.19596, 0)
+visible = false
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
@@ -64,7 +87,8 @@ mesh = SubResource("BoxMesh_vq5os")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.000338747, -5.47381e-05, -143.798, 32.5458, -0.0382139, 0, -2.77529, -0.448135, 0.0175643, -19.6911, -3.99762, 23.2543)
+transform = Transform3D(3.2725e-13, 1.53116e-08, -329.393, 171.274, -1.53116e-08, 0, -7.48662e-06, -0.35029, -1.43982e-05, -19.6911, -3.99762, 54.1511)
+visible = false
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
@@ -73,7 +97,8 @@ mesh = SubResource("BoxMesh_vq5os")
 shape = SubResource("BoxShape3D_oglvb")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.000338747, -5.47381e-05, -143.798, 32.5458, -0.0382139, 0, -2.77529, -0.448135, 0.0175643, -19.6911, -3.99762, -25.5628)
+transform = Transform3D(1.41378e-13, 1.96597e-08, -223.491, 73.9935, -1.96597e-08, 0, -3.23436e-06, -0.449761, -9.76908e-06, -20.6193, 24.336, -64.6125)
+visible = false
 mesh = SubResource("BoxMesh_vq5os")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
@@ -86,5 +111,101 @@ max_debris = 15
 spawn_rate = 1.0
 spawn_min = Vector3(-49, 15, -24)
 spawn_max = Vector3(49, 20, 24)
+
+[node name="arene2" parent="." instance=ExtResource("5_lqxmp")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -3.37075, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_62gkf")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.08874e-14, 1.96597e-08, -17.2754, 10.9319, -1.96597e-08, 0, -4.77849e-07, -0.449761, -7.5513e-07, -17.3922, 0, -47.329)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.08874e-14, 1.96597e-08, -17.2754, 10.9319, -1.96597e-08, 0, -4.77849e-07, -0.449761, -7.5513e-07, 17.7304, 0, -47.329)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D7/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.08874e-14, 1.96597e-08, -17.2754, 10.9319, -1.96597e-08, 0, -4.77849e-07, -0.449761, -7.5513e-07, -0.106379, 0, -22.541)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D8/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.77849e-07, -0.449761, 0, 10.9319, -1.96597e-08, 0, 0, 0, 26.5969, -8.68075, 0, -34.9334)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D9/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.77849e-07, -0.449761, 0, 10.9319, -1.96597e-08, 0, 0, 0, 26.5969, 8.38684, 0, -34.9334)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D10"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D10/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.8591e-07, 1.35902e-08, 12.892, 7.40807, 0.370525, 0, -8.82859, 0.310907, -5.63529e-07, -31.6345, 0, -42.6379)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D11"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D11/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="."]
+transform = Transform3D(135.271, 0, 0, 0, 0.448967, 0, 0, 0, -20.5573, 0, 3.51912, -58.2707)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D13"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D13/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="."]
+transform = Transform3D(17.3576, 0, 0, 0, 0.448967, 0, 0, 0, -44.6491, 0, 3.51912, -42.8842)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D14"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D14/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.8591e-07, 1.35902e-08, 12.892, 7.40807, 0.370525, 0, -8.82859, 0.310907, -5.63529e-07, 31.7282, 0, -42.6379)
+visible = false
+mesh = SubResource("BoxMesh_vq5os")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D12"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D12/StaticBody3D"]
+shape = SubResource("BoxShape3D_oglvb")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

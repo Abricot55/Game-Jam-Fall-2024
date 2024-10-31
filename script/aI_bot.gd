@@ -16,7 +16,6 @@ var otherPlayers = []
 
 var number_scrap = 5
 var team = 0
-signal attack
 signal died
 signal scrap_changed
 

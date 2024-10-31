@@ -16,6 +16,7 @@ var bankTimer:Timer
 var whichBot = 0
 var destination = Vector3(0,0,0)
 
+var bipolarTimer:Timer
 var dash_duration = 0.05
 var dash_timer = 0
 
@@ -31,7 +32,7 @@ signal died
 signal banked
 
 func _ready() -> void:
-	gamestyle = randi() % 3
+	gamestyle = randi() % 6
 	print(gamestyle)
 	timer = Timer.new()
 	timer.wait_time = change_direction_time
@@ -42,9 +43,19 @@ func _ready() -> void:
 	timer.connect("timeout",Callable(self,"_on_Timer_timeout"))
 	add_child(timer)
 	timer.start()
+	if gamestyle == 5:
+		_on_bipolar_timeout()
+		bipolarTimer = Timer.new()
+		bipolarTimer.wait_time = 7
+		bipolarTimer.connect("timeout",Callable(self,"_on_bipolar_timeout"))
+		add_child(bipolarTimer)
+		bipolarTimer.start()
 
 func _on_Timer_timeout() -> void:
-	dash_timer = dash_duration
+	if gamestyle == 4:
+		change_direction()
+	else:
+		dash_timer = dash_duration
 
 
 func _process(delta: float) -> void:
@@ -60,6 +71,8 @@ func _process(delta: float) -> void:
 				0: aggressiveGuy(delta)
 				1: assassin(delta)
 				2: random_attack(delta)
+				3: closest_attack(delta)
+				4: collectionner(delta)
 		else:
 			go_cash_in(delta)
 			
@@ -97,11 +110,7 @@ func go_to_most_gear_ennemy():
 				max = i
 	if max != null:
 		if max.get_child(0).position == position:
-			var s = all_dudes()
-			if s !=null and s.size > 1:
-				go_to_least_gear_ennemy()
-			if s == null:
-				direction = bank_location
+			go_to_random()
 		else:
 			destination = max.get_child(0).position
 	else:
@@ -115,7 +124,7 @@ func find_random_dud():
 
 func all_dudes():
 	var dudes = []
-	for i in dudes:
+	for i in GameData.players:
 		if i != null and i.get_child(0).position != position:
 			dudes.append(i)	
 	if dudes == []:
@@ -130,7 +139,14 @@ func assassin(delta):
 	go_to_least_gear_ennemy()
 	do_movement_thing(delta)
 	
-
+func go_to_random():
+	if destination == Vector3(0,0,0) or destination == bank_location:
+		var d = find_random_dud()
+		if d == null:
+			destination = bank_location
+		else:
+			destination = d.get_child(0).position
+	
 func go_to_least_gear_ennemy():
 	var min
 	for i in GameData.players:
@@ -146,7 +162,7 @@ func go_to_least_gear_ennemy():
 		destination = Vector3(0,0,0)
 
 func do_movement_thing(delta):
-	var direction = (destination - global_transform.origin).normalized()
+	direction = (destination - global_transform.origin).normalized()
 	velocity = direction * speed
 	if !animation.is_playing():
 		animation.play("walking")
@@ -184,10 +200,70 @@ func _on_bank_timeout():
 	can_put_in = true
 
 func random_attack(delta):
-	if destination == Vector3(0,0,0) or destination == bank_location:
-		var d = find_random_dud()
-		if d == null:
-			destination = bank_location
-		else:
-			destination = d.get_child(0).position
+	go_to_random()
 	do_movement_thing(delta)
+
+func closest_attack(delta):
+	go_to_closest()
+	do_movement_thing(delta)
+	
+func collectionner(delta):
+	velocity = direction * speed
+	if !animation.is_playing():
+		animation.play("walking")
+	var s = all_dudes()
+	if s != null:
+		for i in all_dudes():
+			if global_transform.origin.distance_to(i.get_child(0).position) < ATTACK_RANGE:
+				emit_signal("attack")
+				animation.play("attackspinlonghands")
+				destination = Vector3(0,0,0)
+	if dash_timer > 0:
+		velocity = velocity*10
+		dash_timer -= delta
+		move_and_slide()
+		if dash_timer <=0 :
+			animation.play("walkingstop")
+	
+func change_direction():
+	direction = Vector3(
+		randf_range(-1, 1),
+		0,
+		randf_range(-1, 1)
+	).normalized()
+	
+func go_to_closest():
+	var all = all_dudes()
+	var close = null
+	var closestdist = 0
+	if all != null:
+		for i in all:
+			var g = i.get_child(0).position.distance_to(position)
+			if close == null or g < closestdist:
+				closestdist = g
+				close = i
+		destination = close.get_child(0).position
+	else:
+		destination = bank_location
+		
+func fuyeur(delta):
+	go_to_closest()
+	destination = -destination
+	if !animation.is_playing():
+		animation.play("walking")
+	var s = all_dudes()
+	if s != null:
+		for i in all_dudes():
+			if global_transform.origin.distance_to(i.get_child(0).position) < ATTACK_RANGE:
+				emit_signal("attack")
+				animation.play("attackspinlonghands")
+				destination = Vector3(0,0,0)
+	if dash_timer > 0:
+		velocity = velocity*10
+		dash_timer -= delta
+		move_and_slide()
+		if dash_timer <=0 :
+			animation.play("walkingstop")
+	
+func _on_bipolar_timeout():
+	gamestyle = randi() % 5

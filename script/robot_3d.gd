@@ -14,7 +14,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var number_scrap = 5
 var team = 0
-signal attack
 signal died
 signal scrap_changed
 
@@ -25,7 +24,7 @@ var FRONT_ATTACK_RANGE = 5
 
 func _ready():
 	emit_signal("scrap_changed")
-func _process(delta):
+func _process(_delta):
 	realposition = character.global_transform.origin
 
 func get_num_scrap():
