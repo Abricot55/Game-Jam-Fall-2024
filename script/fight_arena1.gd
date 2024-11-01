@@ -1,6 +1,9 @@
 extends Node3D
 
 @onready var bank = $Bank
+@onready var bank2 = $Bank2
+@onready var bank3 = $Bank3
+@onready var bank4 = $Bank4
 @onready var player_infos = $PlayerInfo
 @onready var timer = $Timer
 @onready var debris_spawner = $DebrisSpawn
@@ -13,7 +16,7 @@ var power_up_scene = preload("res://scene/power_up.tscn")
 var players = []
 var colors = [Color(1,0,0),Color(0,1,0), Color(0,0,1), Color(1,1,0)]
 var respawn_positions = [Vector3(-15, 30, -15), Vector3(15, 30, 15), Vector3(-15, 30, 15), Vector3(15, 30, -15)]
-
+var gameTime = null
 
 func _ready():
 	get_child(1).team = 1
@@ -21,10 +24,21 @@ func _ready():
 	get_child(3).team = 3
 	GameData.banks = [bank, $Bank2, $Bank3, $Bank4]
 	change_bank_color()
+	check_if_bank_there()
+	put_good_description()
 	timer.start()
 	player_infos.countdown.text = str(int(timer.time_left)+1)
 	set_up_players()
 	GameData.players = players
+	if GameData.game_mode == "POOR" or GameData.game_mode == "CHRONO":
+		gameTime = Timer.new()
+		gameTime.wait_time = 100
+		gameTime.one_shot = true
+		gameTime.connect("timeout",Callable(self,"game_finished"))
+		add_child(gameTime)
+		gameTime.start()
+	else : 
+		player_infos.gameTime.visible = false
 	var powertime = Timer.new()
 	powertime.wait_time = 15
 	powertime.connect("timeout",Callable(self,"make_power_up_appear"))
@@ -67,21 +81,28 @@ func set_up_players():
 func _process(_delta):
 	if timer.is_stopped() == false:
 		player_infos.countdown.text = str(int(timer.time_left)+1)
+	if gameTime != null:
+		player_infos.gameTime.text = str(int(gameTime.time_left))
 	GameData.players = players
 
 func _do_action(player_id):
-	for banki in GameData.banks:
-		if players[player_id].get_child(0).global_transform.origin.distance_to(banki.global_transform.origin) < banki.scale.x+2 and banki.team == player_id:
-			if players[player_id].get_num_scrap() > 1:
-				players[player_id].remove_a_scrap()
-				banki.add_scrap()
-				player_infos.players_info[player_id].get_child(3).text = "Banked : "+ str(banki.number_scrap)
-				if banki.number_scrap == 30:
-					var scene = final_scene.instantiate()
-					scene.get_child(player_id).visible = true
-					get_tree().get_root().add_child(scene)
-					get_tree().current_scene.queue_free()
-					
+	if GameData.game_mode == "BANK":
+		for banki in GameData.banks:
+			if players[player_id].get_child(0).global_transform.origin.distance_to(banki.global_transform.origin) < banki.scale.x+2 and banki.team == player_id:
+				if players[player_id].get_num_scrap() > 1:
+					players[player_id].remove_a_scrap()
+					banki.add_scrap()
+					player_infos.players_info[player_id].get_child(3).text = "Banked : "+ str(banki.number_scrap)
+					if banki.number_scrap == 30:
+						game_finished()
+	elif GameData.game_mode == "POOR":
+		for banki in GameData.banks:
+			if players[player_id].get_child(0).global_transform.origin.distance_to(banki.global_transform.origin) < banki.scale.x+2 and banki.team != player_id:
+				if players[player_id].get_num_scrap() > 1:
+					players[player_id].remove_a_scrap()
+					banki.add_scrap()
+					player_infos.players_info[banki.team].get_child(3).text = "Banked : "+ str(banki.number_scrap)
+
 func _on_player_attacked(player_id):
 	if players[player_id] != null:
 		for bot in players:
@@ -111,20 +132,21 @@ func respawn(person, positionr = null):
 	person.get_child(0).velocity = Vector3(0,0,0)
 	players[person.team] = person
 	add_child(person)
-	person.number_scrap = 5
+	person.number_scrap = 15
 	changeLabel(person.team)
 	GameData.players = players
 	player_infos.players_info[person.team].material = null
 	
 func _put_in_bank(player_id):
-	get_child(player_id).add_scrap()
+	var which = null
+	for i in GameData.banks:
+		if players[player_id].get_child(0).bank_location == i.position:
+			which = i
+	which.add_scrap()
 	players[player_id].remove_a_scrap()
-	player_infos.players_info[player_id].get_child(3).text = "Banked : "+ str(get_child(player_id).number_scrap)
-	if get_child(player_id).number_scrap == 30:
-		var scene = final_scene.instantiate()
-		scene.get_child(player_id).visible = true
-		get_tree().get_root().add_child(scene)
-		get_tree().current_scene.queue_free()
+	player_infos.players_info[which.team].get_child(3).text = "Banked : "+ str(which.number_scrap)
+	if which.number_scrap == 30 and GameData.game_mode == "BANK":
+		game_finished()
 
 func _on_timer_timeout() -> void:
 	player_infos.countdown.visible = false
@@ -152,3 +174,42 @@ func make_power_up_appear():
 	power.set_wich(randi() % 3)
 	power.position = positions[randi() % positions.size()]
 	add_child(power)
+
+func check_if_bank_there():
+	if GameData.game_mode != "BANK" and GameData.game_mode != "POOR":
+		remove_child(bank)
+		remove_child(bank2)
+		remove_child(bank3)
+		remove_child(bank4)
+
+func game_finished():
+	if GameData.game_mode == "POOR":
+		var cmp = 0
+		for i in GameData.banks:
+			GameData.points[cmp] += -i.number_scrap + 30
+			cmp += 1
+	if GameData.game_mode == "CHRONO":
+		var cmp = 0
+		for i in GameData.players:
+			if i != null:
+				GameData.points[cmp] += i.number_scrap
+			cmp += 1
+	if GameData.game_mode == "BANK":
+		var cmp = 0
+		for i in GameData.banks:
+			GameData.points[cmp] += i.number_scrap
+			cmp += 1
+	GameData.next_game()
+	
+func put_good_description():
+	match GameData.game_mode:
+		"BANK" : 
+			player_infos.get_child(2).text = "First with 30 scraps in the bank win!"
+		"POOR" : 
+			player_infos.get_child(2).text = "Least amount in bank at the end of the chrono wins!"
+		"CHRONO" : 
+			player_infos.get_child(2).text = "Most scraps at the end of the chrono wins!"
+			player_infos.players_info[0].get_child(3).visible = false
+			player_infos.players_info[1].get_child(3).visible = false
+			player_infos.players_info[2].get_child(3).visible = false
+			player_infos.players_info[3].get_child(3).visible = false

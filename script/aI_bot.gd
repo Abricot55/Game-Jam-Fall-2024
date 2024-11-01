@@ -14,7 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var otherPlayers = []
 
-var number_scrap = 5
+var number_scrap = 15
 var team = 0
 signal died
 signal scrap_changed
@@ -42,6 +42,11 @@ func add_scrap():
 	if number_scrap > 10 and GameData.game_mode == "BANK":
 		character.cash_in = true
 		character.bank_location = GameData.banks[team].position
+	elif number_scrap > 10 and GameData.game_mode == "POOR":
+		var nums = [0,1,2,3]
+		nums.remove_at(team)
+		character.cash_in = true
+		character.bank_location = GameData.banks[nums[randi()%nums.size()]].position
 	
 func remove_a_scrap():
 	number_scrap -= 1
@@ -103,7 +108,7 @@ func _on_speed_timeout():
 
 func activate_shield():
 	var speedTimer = Timer.new()
-	speedTimer.wait_time = 3
+	speedTimer.wait_time = 6
 	speedTimer.one_shot = true
 	speedTimer.connect("timeout",Callable(self,"on_shield_timeout").bind(speedTimer))
 	shield = true
@@ -125,9 +130,11 @@ func is_frozen():
 	speedTimer.wait_time = 3
 	speedTimer.one_shot = true
 	speedTimer.connect("timeout",Callable(self,"on_freeze_timeout").bind(speedTimer))
+	$CharacterBody3D/freeze_mesh.visible = true
 	add_child(speedTimer)
 	speedTimer.start()
 	
 func on_freeze_timeout(timer):
+	$CharacterBody3D/freeze_mesh.visible = false
 	remove_child(timer)
 	character.CANT_MOVE = false

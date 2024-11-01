@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0vm4qhwssl36"]
+[gd_scene load_steps=11 format=3 uid="uid://b0vm4qhwssl36"]
 
 [ext_resource type="Script" path="res://script/home_screen.gd" id="1_jpiwl"]
 [ext_resource type="Texture2D" uid="uid://bu77rm56gqp5v" path="res://assets/home.png" id="2_2lkmv"]
 [ext_resource type="Texture2D" uid="uid://s6k7ku2aan3t" path="res://assets/logo.png" id="3_m6nc4"]
 [ext_resource type="Script" path="res://scene/brawler_choose_button.gd" id="3_ounfo"]
+[ext_resource type="Script" path="res://script/game_mode_button.gd" id="5_fdlk0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wiwe8"]
 bg_color = Color(1, 0, 0, 0.729412)
@@ -160,6 +161,15 @@ size_flags_horizontal = 8
 text = "Rounds
 "
 
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "| Game Mode : "
+
+[node name="game_mode_button" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "BANK"
+script = ExtResource("5_fdlk0")
+
 [node name="Control2" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
@@ -178,4 +188,5 @@ text = "Play
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/choose2" to="VBoxContainer/HBoxContainer/choose2" method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/choose3" to="VBoxContainer/HBoxContainer/choose3" method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/choose4" to="VBoxContainer/HBoxContainer/choose4" method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/game_mode_button" to="VBoxContainer/HBoxContainer2/game_mode_button" method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

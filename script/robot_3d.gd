@@ -90,7 +90,7 @@ func _on_speed_timeout(timer):
 
 func activate_shield():
 	var speedTimer = Timer.new()
-	speedTimer.wait_time = 3
+	speedTimer.wait_time = 6
 	speedTimer.one_shot = true
 	speedTimer.connect("timeout",Callable(self,"on_shield_timeout").bind(speedTimer))
 	shield = true
@@ -112,9 +112,11 @@ func is_frozen():
 	speedTimer.wait_time = 3
 	speedTimer.one_shot = true
 	speedTimer.connect("timeout",Callable(self,"on_freeze_timeout").bind(speedTimer))
+	$CharacterBody3D/freeze_mesh.visible = true
 	add_child(speedTimer)
 	speedTimer.start()
 	
 func on_freeze_timeout(timer):
 	remove_child(timer)
+	$CharacterBody3D/freeze_mesh.visible = false
 	character.CANT_MOVE = false

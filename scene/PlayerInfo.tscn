@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://csk2xkuppcx6d"]
+[gd_scene load_steps=15 format=3 uid="uid://csk2xkuppcx6d"]
 
 [ext_resource type="Texture2D" uid="uid://dn6hdqodg1t0g" path="res://GLTFrobot/robotFace.png" id="1_47gmc"]
 [ext_resource type="Script" path="res://script/player_info.gd" id="1_i6a2m"]
@@ -29,6 +29,9 @@ font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_3p2gc"]
 font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_vgfl5"]
+font_size = 22
 
 [node name="PlayerInfo" type="Control"]
 layout_mode = 3
@@ -256,3 +259,12 @@ grow_horizontal = 2
 text = "First to 30 in bank wins
 "
 label_settings = SubResource("LabelSettings_3p2gc")
+
+[node name="GameChrono" type="Label" parent="."]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 54.0
+offset_right = 649.0
+offset_bottom = 77.0
+text = "0:00"
+label_settings = SubResource("LabelSettings_vgfl5")
