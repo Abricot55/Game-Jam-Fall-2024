@@ -44,6 +44,7 @@ func remove_a_scrap():
 
 func attacked():
 	if not shield:
+		print("A")
 		var scene = self.get_parent_node_3d()
 		var drop_pos = drop_position.global_position
 		character.knockback()

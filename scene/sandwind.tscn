@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cslpuiha6mds8"]
+
+[ext_resource type="Script" path="res://script/sandwind.gd" id="1_mnpds"]
+[ext_resource type="Texture2D" uid="uid://chaibn21nf8ha" path="res://assets/sand.png" id="2_gvun1"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_mnpds")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gvun1")

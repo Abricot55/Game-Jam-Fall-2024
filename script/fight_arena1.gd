@@ -93,7 +93,7 @@ func _do_action(player_id):
 					players[player_id].remove_a_scrap()
 					banki.add_scrap()
 					player_infos.players_info[player_id].get_child(3).text = "Banked : "+ str(banki.number_scrap)
-					if banki.number_scrap == 30:
+					if banki.number_scrap == 50:
 						game_finished()
 	elif GameData.game_mode == "POOR":
 		for banki in GameData.banks:
@@ -145,7 +145,7 @@ func _put_in_bank(player_id):
 	which.add_scrap()
 	players[player_id].remove_a_scrap()
 	player_infos.players_info[which.team].get_child(3).text = "Banked : "+ str(which.number_scrap)
-	if which.number_scrap == 30 and GameData.game_mode == "BANK":
+	if which.number_scrap == 50 and GameData.game_mode == "BANK":
 		game_finished()
 
 func _on_timer_timeout() -> void:
@@ -186,7 +186,7 @@ func game_finished():
 	if GameData.game_mode == "POOR":
 		var cmp = 0
 		for i in GameData.banks:
-			GameData.points[cmp] += -i.number_scrap + 30
+			GameData.points[cmp] += -i.number_scrap + 50
 			cmp += 1
 	if GameData.game_mode == "CHRONO":
 		var cmp = 0
@@ -204,7 +204,7 @@ func game_finished():
 func put_good_description():
 	match GameData.game_mode:
 		"BANK" : 
-			player_infos.get_child(2).text = "First with 30 scraps in the bank win!"
+			player_infos.get_child(2).text = "First with 50 scraps in the bank win!"
 		"POOR" : 
 			player_infos.get_child(2).text = "Least amount in bank at the end of the chrono wins!"
 		"CHRONO" : 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdydh8un3gkdn"]
+[gd_scene load_steps=12 format=3 uid="uid://cdydh8un3gkdn"]
 
 [ext_resource type="Script" path="res://script/fight_arena1.gd" id="1_8rvvr"]
 [ext_resource type="PackedScene" uid="uid://blrgn1ppm75nf" path="res://scene/bank.tscn" id="1_xb17v"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://csk2xkuppcx6d" path="res://scene/PlayerInfo.tscn" id="4_opd4e"]
 [ext_resource type="PackedScene" uid="uid://cx1gnqchlamnu" path="res://arene.glb" id="5_lqxmp"]
 [ext_resource type="PackedScene" uid="uid://buh4d461artpf" path="res://arene.fbx" id="6_q72yu"]
+[ext_resource type="AudioStream" uid="uid://cde5eeoyodsdt" path="res://Music/GameJam01_LoopAfterIntro.mp3" id="7_em7nq"]
 
 [sub_resource type="Sky" id="Sky_y8mug"]
 
@@ -351,5 +352,11 @@ shape = SubResource("BoxShape3D_oglvb")
 
 [node name="arene" parent="." instance=ExtResource("6_q72yu")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_em7nq")
+autoplay = true
+mix_target = 1
+parameters/looping = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -20,6 +20,8 @@ var bipolarTimer:Timer
 var dash_duration = 0.03
 var dash_timer = 0
 
+var att_timer = Timer.new()
+
 var ATTACK_RANGE = 5
 var CANT_MOVE = false
 var gamestyle = 0
@@ -51,6 +53,9 @@ func _ready() -> void:
 		bipolarTimer.connect("timeout",Callable(self,"_on_bipolar_timeout"))
 		add_child(bipolarTimer)
 		bipolarTimer.start()
+	att_timer.one_shot = true
+	att_timer.wait_time = 1
+	add_child(att_timer)
 
 func _on_Timer_timeout() -> void:
 	if gamestyle == 4:
@@ -73,7 +78,7 @@ func _process(delta: float) -> void:
 					1: assassin(delta)
 					2: random_attack(delta)
 					3: closest_attack(delta)
-					4: collectionner(delta)
+					4: random_attack(delta)
 			else:
 				go_cash_in(delta)
 				
@@ -172,12 +177,12 @@ func do_movement_thing(delta):
 		emit_signal("attack")
 		animation.play("attackspinlonghands")
 		destination = Vector3(0,0,0)
-	if dash_timer > 0:
-		velocity = velocity*10
-		dash_timer -= delta
-		move_and_slide()
-		if dash_timer <=0 :
-			animation.play("walkingstop")
+#	if dash_timer > 0:
+#		velocity = velocity*10
+#		dash_timer -= delta
+#		move_and_slide()
+#		if dash_timer <=0 :
+#			animation.play("walkingstop")
 
 func go_cash_in(delta):
 	var direction = (bank_location - global_transform.origin).normalized()
@@ -217,16 +222,16 @@ func collectionner(delta):
 	if s != null:
 		for i in all_dudes():
 			if global_transform.origin.distance_to(i.get_child(0).position) < ATTACK_RANGE:
-				await get_tree().create_timer(randf()).timeout
+				await get_tree().create_timer(randf()*0.2).timeout
 				emit_signal("attack")
 				animation.play("attackspinlonghands")
 				destination = Vector3(0,0,0)
-	if dash_timer > 0:
-		velocity = velocity*10
-		dash_timer -= delta
-		move_and_slide()
-		if dash_timer <=0 :
-			animation.play("walkingstop")
+#	if dash_timer > 0:
+#		velocity = velocity*10
+#		dash_timer -= delta
+#		move_and_slide()
+#		if dash_timer <=0 :
+#			animation.play("walkingstop")
 	
 func change_direction():
 	direction = Vector3(
@@ -262,12 +267,12 @@ func fuyeur(delta):
 				emit_signal("attack")
 				animation.play("attackspinlonghands")
 				destination = Vector3(0,0,0)
-	if dash_timer > 0:
-		velocity = velocity*10
-		dash_timer -= delta
-		move_and_slide()
-		if dash_timer <=0 :
-			animation.play("walkingstop")
+#	if dash_timer > 0:
+#		velocity = velocity*10
+#		dash_timer -= delta
+#		move_and_slide()
+#		if dash_timer <=0 :
+#			animation.play("walkingstop")
 	
 func _on_bipolar_timeout():
 	gamestyle = randi() % 5
