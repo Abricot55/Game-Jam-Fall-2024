@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://csk2xkuppcx6d"]
+[gd_scene load_steps=17 format=3 uid="uid://csk2xkuppcx6d"]
 
 [ext_resource type="Texture2D" uid="uid://dn6hdqodg1t0g" path="res://GLTFrobot/robotFace.png" id="1_47gmc"]
 [ext_resource type="Script" path="res://script/player_info.gd" id="1_i6a2m"]
@@ -15,6 +15,10 @@ shader = ExtResource("2_yde4p")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54vsu"]
 render_priority = 0
 shader = ExtResource("2_yde4p")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ungh7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2lmru"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4yjv"]
 render_priority = 0
@@ -134,6 +138,33 @@ offset_right = 191.0
 offset_bottom = 142.0
 text = "Banked : 0"
 metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Player 1 : 
+Flèches -> mouvement
+space -> attaque
+m -> banque
+n -> dash
+h -> emote"
+label_settings = SubResource("LabelSettings_ungh7")
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Player 2 : 
+WASD -> mouvement
+q -> attaque
+shift -> banque
+tab -> dash
+z -> emote"
+label_settings = SubResource("LabelSettings_2lmru")
 
 [node name="Control2" type="Control" parent="VBoxContainer"]
 layout_mode = 2

@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 					emit_signal("action")
 
 		if dash_timer > 0:
-			velocity = velocity*30
+			velocity = velocity*10
 			dash_timer -= delta
 			move_and_slide()
 			if dash_timer <=0 :
