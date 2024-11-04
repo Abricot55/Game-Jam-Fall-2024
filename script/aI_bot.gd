@@ -73,6 +73,9 @@ func attacked():
 		elif number_scrap < 20:
 			number_scrap -= 5
 			Debris.summon_at_random(scene, drop_pos, 5)
+		else:
+			number_scrap -= 6
+			Debris.summon_at_random(scene, drop_pos, 6)
 		if number_scrap <= 9:
 			character.cash_in = false
 		emit_signal("scrap_changed")

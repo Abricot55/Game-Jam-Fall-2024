@@ -60,6 +60,9 @@ func attacked():
 		elif number_scrap < 20:
 			number_scrap -= 5
 			Debris.summon_at_random(scene, drop_pos, 5)
+		else :
+			number_scrap -= 6
+			Debris.summon_at_random(scene, drop_pos, 6)
 		if number_scrap <= 0:
 			emit_signal("died")
 		emit_signal("scrap_changed")
